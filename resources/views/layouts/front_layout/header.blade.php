@@ -27,7 +27,7 @@
                     <img src="{{ asset('assets/images/header-right.png') }}" alt="user" class="topbar--right-img" />
 
                     <div class="d-flex flex-column align-items-start">
-                        <span class="hidden-md-down fs-14px fw-bold">Ali Hamza</span>
+                        <span class="hidden-md-down fs-14px fw-bold"> {{ Auth::user()->fname }} {{ Auth::user()->lname }} </span>
                         <span class="hidden-md-down fs-12px fw-semibold">Admin</span>
                     </div>
                 </a>
@@ -42,7 +42,7 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><img src="{{ asset('assets/images/manage-acc.png') }}" alt="">Manage Account</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="login.php"><img src="{{ asset('assets/images/logout.png') }}" alt="">Logout</a></li>
+                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('logout') }}"><img src="{{ asset('assets/images/logout.png') }}" alt="">Logout</a></li>
                 </ul>
             </li>
         </ul>

@@ -98,3 +98,47 @@
         });
     });
 </script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    
+    // Set the options that I want
+    toastr.options = {
+    "closeButton": true,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "1000",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear", 
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+    }
+
+</script>
+
+@if(Session::has('message'))
+<script>
+    $(document).ready(function onDocumentReady() {  
+    
+        toastr.success("{{ Session::get('message') }}");
+    
+    });
+</script>
+@elseif(Session::has('error'))
+<script>
+    $(document).ready(function onDocumentReady() {  
+    
+        toastr.error("{{ Session::get('error') }}");
+    
+    });
+</script>
+@endif

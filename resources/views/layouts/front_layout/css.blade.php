@@ -9,3 +9,19 @@
 <link rel="stylesheet" href="{{asset('assets/css/main.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}" />
 
+<!--Toaster Css-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+<style>
+    
+    .toast-success{
+        background-color:green !important;
+    }
+    
+    
+    .toast-error{
+        background-color:red !important;
+    }
+    
+</style>
+

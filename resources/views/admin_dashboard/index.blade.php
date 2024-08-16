@@ -12,7 +12,7 @@
 
 <div class="main-dashboard-content-parent">
     <div class="page-heading">
-        <h3 class="text-themecolor fw-bold">Welcome, Ali Hamza</h3>
+        <h3 class="text-themecolor fw-bold">Welcome, {{ Auth::user()->fname }} {{ Auth::user()->lname }} </h3>
     </div>
 
     <div class="row mt-4">
