@@ -149,13 +149,42 @@ class DashboardController extends Controller
     }
     
 
-    public function leads_detail(){
+    public function leads_detail($id = ""){
     
         try {
         
+            $get_lead_by_id = Lead::where('uuid', $id)->first();
+            // dd($get_lead_by_id);
             
-            
-            return view('admin_dashboard.leads_detail');
+            return view('admin_dashboard.leads_detail', compact('get_lead_by_id'));
+        
+        }catch(\Exception $e) { 
+
+            return response()->json([
+
+                'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => 'Server error',
+                'error' => $e->getMessage(),
+
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+
+        }
+
+
+    }
+
+
+    
+
+    public function update_leads_detail($id = "", $status = ""){
+    
+        try {
+        
+            $get_lead = Lead::find($id);
+            $get_lead->status = $status;     
+            $get_lead->save();
+
+            return redirect()->route('leads');
         
         }catch(\Exception $e) { 
 
