@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\LeadController;
+use App\Http\Controllers\API\LeadController;
 
 
 Route::post('/leads', [LeadController::class, 'add_lead_by_api']);

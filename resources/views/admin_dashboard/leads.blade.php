@@ -170,7 +170,7 @@
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.created_at}</p></td>
                     <td><p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
                         <button class="table-button btn-${statusText.toLowerCase().replace(' ', '')}">${statusText}</button>
-                        <a href="/leads/${lead.id}" class="table-button btn-viewlead">View Lead</a>
+                        <a href="/dashboard/leads-detail/${lead.id}" class="table-button btn-viewlead">View Lead</a>
                     </p></td>
                 </tr>`;
             $('#leadsTableBody').prepend(newRow); // Prepend new lead at the top
