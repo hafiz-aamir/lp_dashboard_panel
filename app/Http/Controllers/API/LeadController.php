@@ -60,4 +60,12 @@ class LeadController extends Controller
         ], 201);
     }
 
+
+    public function get_lead()
+    {
+
+        echo "Hello";
+
+    }
+
 }
