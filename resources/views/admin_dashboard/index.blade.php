@@ -29,6 +29,7 @@ $statuses = [0, 1, 2, 3, 4]; // List of statuses to fetch data for
 $dataPointsByStatus = [];
 
 foreach ($statuses as $status) {
+    
     $dataPoints = DB::table('leads')
         ->select(DB::raw("DATE_FORMAT(created_at, '%b') as label"))
         ->selectRaw('COUNT(*) as y')
@@ -40,6 +41,7 @@ foreach ($statuses as $status) {
         ->get();
 
     $dataPointsFormatted = array_fill(0, 12, ['label' => '', 'y' => 0]);
+
     foreach ($dataPoints as $point) {
         $index = date('n', strtotime($point->label . ' 1')); // Get month index (1-based)
         $dataPointsFormatted[$index - 1] = ['label' => $point->label, 'y' => $point->y];
@@ -51,6 +53,7 @@ foreach ($statuses as $status) {
     }
 
     $dataPointsByStatus['status_' . $status] = $dataPointsFormatted;
+    
 }
 
 // Encode the data and yearMonth for JavaScript

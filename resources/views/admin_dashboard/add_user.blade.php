@@ -13,7 +13,7 @@
 
 <div class="main-dashboard-content-parent">
     <div>
-        <a class="backToPageBtn" href="users-management.php"><i class="fa-solid fa-arrow-left-long"></i> Back to User Management</a>
+        <a class="backToPageBtn" href="{{ route('user_management') }}"><i class="fa-solid fa-arrow-left-long"></i> Back to User Management</a>
     </div>
     <div class="page-heading mt-2">
         <h3 class="text-themecolor fw-bold">Add New User</h3>

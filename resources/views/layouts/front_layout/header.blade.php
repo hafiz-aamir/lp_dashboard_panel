@@ -41,7 +41,7 @@
 
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><img src="{{ asset('assets/images/manage-acc.png') }}" alt="">Manage Account</a></li>
+                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('user_management') }}"><img src="{{ asset('assets/images/manage-acc.png') }}" alt="">Manage Account</a></li>
                     <li><a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('logout') }}"><img src="{{ asset('assets/images/logout.png') }}" alt="">Logout</a></li>
                 </ul>
             </li>

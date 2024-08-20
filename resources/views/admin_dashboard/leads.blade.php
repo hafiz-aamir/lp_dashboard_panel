@@ -164,6 +164,17 @@
                     break;
             }
 
+            var createdAt = new Date(lead.created_at);
+            var formattedDate = createdAt.toLocaleString('en-US', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+
             var newRow = `
                 <tr>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.id}</p></td>
@@ -171,7 +182,7 @@
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.email}</p></td>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.phone}</p></td>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.brand_name}</p></td>
-                    <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.created_at}</p></td>
+                    <td><p class="d-flex align-items-center justify-content-start mb-0">${formattedDate}</p></td>
                     <td><p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
                         <button class="table-button btn btn-${color.toLowerCase().replace(' ', '')}">${statusText}</button>
                         <a href="/dashboard/leads-detail/${lead.uuid}" class="table-button btn-viewlead">View Lead</a>

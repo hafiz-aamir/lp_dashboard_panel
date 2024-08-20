@@ -12,7 +12,7 @@
 
 <div class="main-dashboard-content-parent">
     <div>
-        <a class="backToPageBtn" href="leads.php"><i class="fa-solid fa-arrow-left-long"></i> Back to Lead List</a>
+        <a class="backToPageBtn" href="{{ route('leads') }}"><i class="fa-solid fa-arrow-left-long"></i> Back to Lead List</a>
     </div>
     <div class="page-heading mt-2">
         <h3 class="text-themecolor fw-bold">Leads Detail</h3>
@@ -52,7 +52,7 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Created At</label>
                 <div class="col-md-5">
-                    <input type="text" class="form-control inpCust" value="{{ $get_lead_by_id->created_at }}" name="created_at" readonly>
+                    <input type="text" class="form-control inpCust" value="{{ \Carbon\Carbon::parse($get_lead_by_id->created_at)->format('Y-m-d H:i:s a') }}" name="created_at" readonly>
                 </div>
             </div>
             <div class="row mb-3">
