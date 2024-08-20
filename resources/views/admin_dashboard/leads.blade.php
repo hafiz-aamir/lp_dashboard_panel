@@ -96,7 +96,7 @@
 
         <div class="table-card mt-4">
 
-        <table class="table">
+        <table class="table table-responsive table-hover text-center">
         <thead>
             <tr>
                 <th>ID</th>
@@ -148,15 +148,19 @@
             switch(lead.status) {
                 case 0:
                     statusText = 'Pending';
+                    color = 'primary';
                     break;
                 case 1:
                     statusText = 'In Progress';
+                    color = 'warning';
                     break;
                 case 2:
                     statusText = 'Completed';
+                    color = 'success';
                     break;
                 case 3:
                     statusText = 'Rejected';
+                    color = 'danger';
                     break;
             }
 
@@ -169,7 +173,7 @@
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.brand_name}</p></td>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.created_at}</p></td>
                     <td><p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
-                        <button class="table-button btn-${statusText.toLowerCase().replace(' ', '')}">${statusText}</button>
+                        <button class="table-button btn btn-${color.toLowerCase().replace(' ', '')}">${statusText}</button>
                         <a href="/dashboard/leads-detail/${lead.uuid}" class="table-button btn-viewlead">View Lead</a>
                     </p></td>
                 </tr>`;

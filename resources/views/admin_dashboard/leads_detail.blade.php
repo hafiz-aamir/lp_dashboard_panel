@@ -76,9 +76,27 @@
             <div class="btn-group d-flex justify-content-end">
                 <!-- <button class="printPdfBtn me-2"><i class="fa fa-print"></i></button> -->
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        Inprogress
-                    </button>
+                    
+                        <?php 
+                        
+                        if($get_lead_by_id->status == "0")
+                        {
+                           echo '<button class="btn btn-primary dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false"> Pending </button>';
+                        }
+                        else if($get_lead_by_id->status == "1")
+                        {
+                            echo '<button class="btn btn-warning dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false"> Inprogress </button>';
+                        }
+                        else if($get_lead_by_id->status == "2")
+                        {
+                            echo '<button class="btn btn-success dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false"> Completed </button>';
+                        }
+                        else if($get_lead_by_id->status == "3")
+                        {
+                            echo '<button class="btn btn-danger dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false"> Rejected </button>';
+                        }
+                        
+                        ?>
 
                     <ul class="dropdown-menu" aria-labelledby="statusDropdown">
                         <li><a class="dropdown-item" href="{{ route('update_leads_detail', ['id' => $get_lead_by_id->id, 'status' => '0']) }}">Pending</a></li>

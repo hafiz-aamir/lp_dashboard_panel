@@ -31,9 +31,11 @@ class DashboardController extends Controller
     
         try {
         
+            $get_pending_leads = Lead::where('status', '0')->count();
+            $get_inprogress_leads = Lead::where('status', '1')->count();
+            $get_completed_leads = Lead::where('status', '2')->count();
+            $get_rejected_leads = Lead::where('status', '3')->count();
             
-            
-            return view('admin_dashboard.index');
         
         }catch(\Exception $e) { 
 
@@ -209,7 +211,9 @@ class DashboardController extends Controller
         // Fetching all leads
         $leads = Lead::orderBy('created_at', 'asc')->get();
 
-        // Returning leads in JSON format
+        // $formattedDate = Carbon::parse($lead['created_at'])->format('Y-m-d h:i A');
+        // $lead['created_at'] = $formattedDate;
+        
         return response()->json($leads);
     }
 
