@@ -36,6 +36,7 @@ class DashboardController extends Controller
             $get_completed_leads = Lead::where('status', '2')->count();
             $get_rejected_leads = Lead::where('status', '3')->count();
             
+            return view('admin_dashboard.index', compact('get_pending_leads', 'get_inprogress_leads', 'get_completed_leads', 'get_rejected_leads'));
         
         }catch(\Exception $e) { 
 
