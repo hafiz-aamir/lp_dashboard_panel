@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LeadController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,10 +31,16 @@ Route::post('postlogin', [LoginController::class, 'postlogin'])->name('postlogin
 // Dashboard Routes
 Route::get('logout', [DashboardController::class, 'logout'])->name('logout');
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('dashboard/leads', [DashboardController::class, 'leads'])->name('leads');
-Route::get('dashboard/leads-detail/{id?}', [DashboardController::class, 'leads_detail'])->name('leads_detail');
-Route::get('dashboard/update-leads-detail/{id?}/{status?}', [DashboardController::class, 'update_leads_detail'])->name('update_leads_detail');
-Route::get('dashboard/user-management', [DashboardController::class, 'user_management'])->name('user_management');
-Route::get('dashboard/add-user', [DashboardController::class, 'add_user'])->name('add_user');
-Route::get('dashboard/edit-user', [DashboardController::class, 'edit_user'])->name('edit_user');
-Route::get('/get-leads', [DashboardController::class, 'getLeads'])->name('getLeads');
+
+
+//Leads
+Route::get('dashboard/leads', [LeadController::class, 'leads'])->name('leads');
+Route::get('dashboard/leads-detail/{id?}', [LeadController::class, 'leads_detail'])->name('leads_detail');
+Route::get('dashboard/update-leads-detail/{id?}/{status?}', [LeadController::class, 'update_leads_detail'])->name('update_leads_detail');
+Route::get('/get-leads', [LeadController::class, 'getLeads'])->name('getLeads');
+
+
+//User
+Route::get('dashboard/user-management', [UserController::class, 'user_management'])->name('user_management');
+Route::get('dashboard/add-user', [UserController::class, 'add_user'])->name('add_user');
+Route::get('dashboard/edit-user', [UserController::class, 'edit_user'])->name('edit_user');
