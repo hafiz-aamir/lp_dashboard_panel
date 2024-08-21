@@ -13,6 +13,8 @@ class User_special_permission extends Model
 {
     use HasFactory , LogsActivity, SoftDeletes; 
 
+    protected $table = 'user_special_permissions';
+    
     protected $fillable = [
 
         'uuid',
@@ -33,5 +35,22 @@ class User_special_permission extends Model
         ->setDescriptionForEvent(fn(string $eventName) => "Special Permission {$eventName} Successfully"); 
         
     } 
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function permission()
+    {
+        return $this->belongsTo(Permission::class);
+    }
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
+
 
 }

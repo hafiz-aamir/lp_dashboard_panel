@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id(); 
             $table->uuid('uuid')->unique();
             $table->string('name')->unique();
-            $table->longText('description')->nullable();
+            $table->longText('url')->nullable();
             $table->integer('sort_id')->default('1');
             $table->longText('icon')->nullable();
             $table->string('auth_id')->default('1');

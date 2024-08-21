@@ -17,11 +17,13 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Lead;
 use Carbon\Carbon; 
 use Illuminate\Support\Str;
+use App\Traits\PermissionTrait;
 
 
 class LeadController extends Controller
 {
-    
+
+    use PermissionTrait;
 
     public function leads(){
     

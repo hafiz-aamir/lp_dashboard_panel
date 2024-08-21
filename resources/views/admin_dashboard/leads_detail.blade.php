@@ -9,6 +9,11 @@
 
 @section('content')
 
+<?php 
+
+  // if(\App\Services\PermissionChecker::checkPermission('Listing', 'Leads')){ echo ''; }else{ echo ''; }
+  
+?>
 
 <div class="main-dashboard-content-parent">
     <div>

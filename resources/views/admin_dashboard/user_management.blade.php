@@ -9,8 +9,11 @@
 
 @section('content')
 
+<?php 
 
-
+  // if(\App\Services\PermissionChecker::checkPermission('Listing', 'Leads')){ echo ''; }else{ echo ''; }
+  
+?>
 
 <div class="main-dashboard-content-parent">
     <div class="page-heading d-flex align-items-center justify-content-between">
@@ -20,84 +23,63 @@
 
     <div class="table-card mt-4">
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>First Name</th>
+            <th>#</th>
+            <th>Full Name</th>
             <th>Email</th>
-            <th>Phone Number</th>
+            <th>Phone</th>
+            <th>Role</th>
             <th>Action</th>
            
         </tr>
     </thead>
     <tbody>
+
+
+        @foreach($get_all_user as $key => $value)
         <tr>
             <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">1</p>
+                <p class="d-flex align-items-center justify-content-start mb-0"> {{ $key + 1 }} </p>
             </td>
+            
             <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">Christine Brooks</p>
+                <p class="d-flex align-items-center justify-content-start mb-0"> {{ $value->fname }} {{ $value->lname }} </p>
             </td>
+            
             <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">christine@example.com</p>
+                <p class="d-flex align-items-center justify-content-start mb-0"> {{ $value->email }} </p>
             </td>
+
             <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">christine@example.com</p>
+                <p class="d-flex align-items-center justify-content-start mb-0"> {{ $value->phone }} </p>
+            </td>
+
+            <td>
+                <p class="d-flex align-items-center justify-content-start mb-0"> {{ $value->role->role }} </p>
             </td>
             
             
             <td>
                 <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
-                    <a href="{{ route('edit_user') }}" class="table-button btn-edit-user">Edit User</a>
-                    <a href="" class="table-button btn-delete">Delete</a>
+                    
+                    <a href="{{ route('edit_user', ['id' => $value->uuid]) }}" class="table-button btn-edit-user">Edit User</a>
+                    
+                    <?php if($value->role_id == '1'){ ?>
+
+                        <button disabled class="table-button btn btn-secondary">Delete</button>
+
+                    <?php }else{ ?>
+
+                        <a href="{{ route('delete_user', ['id' => $value->uuid]) }}" onclick="return confirm('are you sure?')" class="table-button btn-delete">Delete</a>
+
+                    <?php } ?>
+
                 </p>
             </td>
         </tr>
-        <tr>
-            <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">1</p>
-            </td>
-            <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">Christine Brooks</p>
-            </td>
-            <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">christine@example.com</p>
-            </td>
-            <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">christine@example.com</p>
-            </td>
-            
-            
-            <td>
-                <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
-                    <a href="{{ route('edit_user') }}" class="table-button btn-edit-user">Edit User</a>
-                    <a href="" class="table-button btn-delete">Delete</a>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">1</p>
-            </td>
-            <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">Christine Brooks</p>
-            </td>
-            <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">christine@example.com</p>
-            </td>
-            <td>
-                <p class="d-flex align-items-center justify-content-start mb-0">christine@example.com</p>
-            </td>
-            
-            
-            <td>
-                <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
-                    <a href="{{ route('edit_user') }}" class="table-button btn-edit-user">Edit User</a>
-                    <a href="" class="table-button btn-delete">Delete</a>
-                </p>
-            </td>
-        </tr>
+        @endforeach
         
 
     </tbody>

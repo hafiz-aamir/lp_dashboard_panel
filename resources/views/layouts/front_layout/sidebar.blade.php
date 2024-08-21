@@ -1,6 +1,12 @@
 <?php 
+
     $get_route = Request::segment(2);
+    // if(\App\Services\PermissionChecker::checkPermission('Listing', 'Leads')){ echo ''; }else{ echo ''; }
+
 ?>
+
+
+
 <!-- Left Sidebar -->
     <!-- ============================================================== -->
     <aside class="left-sidebar" id="sidebar">
@@ -20,18 +26,24 @@
                         </a>
                     </li>
 
-                    <li>
-                        <a class="waves-effect waves-dark <?php if($get_route == "leads" || $get_route == "leads-detail"){ echo "active"; } ?>" href="{{ route('leads') }}" aria-expanded="false">
-                            <!-- href="leads.php" aria-expanded="false"> -->
-                            <img src="{{asset('assets/images/list.png') }}" alt=""><span class="hide-menu">Leads Lists</span>
-                        </a>
-                    </li>
+                    @if(\App\Services\PermissionChecker::checkPermission('Listing', 'Leads'))
+                        <li>
+                            <a class="waves-effect waves-dark <?php if($get_route == "leads" || $get_route == "leads-detail"){ echo "active"; } ?>" href="{{ route('leads') }}" aria-expanded="false">
+                                <!-- href="leads.php" aria-expanded="false"> -->
+                                <img src="{{asset('assets/images/list.png') }}" alt=""><span class="hide-menu">Leads Lists</span>
+                            </a>
+                        </li>
+                    @endif
+                    
+                    <!-- Users -->
 
-                    <li>
-                        <a class="waves-effect waves-dark <?php if($get_route == "user-management" || $get_route == "add-user" ||  $get_route == "edit-user"){ echo "active"; } ?>" href="{{ route('user_management') }}" aria-expanded="false">
-                            <img src="{{asset('assets/images/user-mng.png') }}" alt=""><span class="hide-menu">Users Management</span>
-                        </a>
-                    </li>
+                    @if(\App\Services\PermissionChecker::checkPermission('Listing', 'Users'))
+                        <li>
+                            <a class="waves-effect waves-dark <?php if($get_route == "user-management" || $get_route == "add-user" ||  $get_route == "edit-user"){ echo "active"; } ?>" href="{{ route('user_management') }}" aria-expanded="false">
+                                <img src="{{asset('assets/images/user-mng.png') }}" alt=""><span class="hide-menu">Users Management</span>
+                            </a>
+                        </li>
+                    @endif
 
                 </ul>
 
