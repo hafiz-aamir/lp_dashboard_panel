@@ -32,7 +32,7 @@ class UserController extends Controller
     
         try {
 
-            $get_all_user = User::where('role_id', '!=', '1')->get();
+            $get_all_user = User::where('role_id', '!=', '2')->get();
 
             return view('admin_dashboard.user_management', compact('get_all_user'));
         
@@ -144,27 +144,6 @@ class UserController extends Controller
             return back()->with('error', $e->getMessage());
 
         }
-
-
-    }
-
-
-
-    public function edit_permission($uuid){
-    
-        try {
-            
-            $module = Menu::where('status', '1')->where('is_dashboard', '1')->get();
-            $permission = Permission::where('status', '1')->where('is_dashboard', '1')->get();
-
-            return view('admin_dashboard.edit_permission', compact('module', 'permission'));
-        
-        }catch(\Exception $e) { 
-
-            return back()->with('error', $e->getMessage());
-
-        }
-
 
     }
 

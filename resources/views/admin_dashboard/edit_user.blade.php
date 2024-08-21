@@ -52,13 +52,25 @@
                                 <div class="addUserInp py-2">
                                     <label for="">Select Brand</label>
                                     <select name="role_id" class="inpCust py-3 d-lg-block form-control my-1">
-                                        <option value="" disabled>-- Select Brand --</option>
-                                        <!-- <option value="1">Super Admin</option> -->
+                                        <option value="" disabled selected>-- Select Brand --</option>
                                         <option <?php if($get_user->role_id == "2"){ echo 'selected'; } ?> value="2">Admin</option>
                                     </select>
                                 </div>
                                 
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="addUserInp py-2">
+                                    <label for="">Select Status</label>
+                                    <select name="role_id" class="inpCust py-3 d-lg-block form-control my-1">
+                                        <option value="1" disabled selected>-- Select Status --</option>
+                                        <option <?php if($get_user->status == "1"){ echo 'selected'; } ?> value="1">Active</option>
+                                        <option <?php if($get_user->status == "2"){ echo 'selected'; } ?> value="2">InActive</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+
                         </div>
 
                         <button  class="add-user-btn font-semibold mt-4 d-table border-0">Update</button>
