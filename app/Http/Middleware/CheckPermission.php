@@ -30,7 +30,9 @@ class CheckPermission
 
         
         if ($user->role_id == 1) {
-            return $next($request); 
+
+            return $next($request);
+
         }
         else{
 

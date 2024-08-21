@@ -65,16 +65,8 @@
                 <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
                     
                     <a href="{{ route('edit_user', ['id' => $value->uuid]) }}" class="table-button btn-edit-user">Edit User</a>
-                    
-                    <?php if($value->role_id == '1'){ ?>
-
-                        <button disabled class="table-button btn btn-secondary">Delete</button>
-
-                    <?php }else{ ?>
-
-                        <a href="{{ route('delete_user', ['id' => $value->uuid]) }}" onclick="return confirm('are you sure?')" class="table-button btn-delete">Delete</a>
-
-                    <?php } ?>
+                    <a href="{{ route('edit_permission', ['id' => $value->uuid]) }}" class="table-button btn-edit-user">Edit Permission</a>
+                    <a href="{{ route('delete_user', ['id' => $value->uuid]) }}" onclick="return confirm('are you sure?')" class="table-button btn-delete">Delete</a>
 
                 </p>
             </td>

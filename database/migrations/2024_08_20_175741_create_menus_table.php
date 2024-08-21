@@ -21,6 +21,7 @@ return new class extends Migration
             $table->longText('icon')->nullable();
             $table->string('auth_id')->default('1');
             $table->integer('status')->default('1');
+            $table->integer('is_dashboard')->default('0');
             $table->integer('parent_id')->default('1');
             $table->timestamps();
             $table->softDeletes();

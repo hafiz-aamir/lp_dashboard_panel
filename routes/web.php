@@ -48,3 +48,6 @@ Route::post('store-add-user', [UserController::class, 'store_add_user'])->name('
 Route::get('dashboard/edit-user/{id?}', [UserController::class, 'edit_user'])->name('edit_user')->middleware('check.permission:View,Users');
 Route::post('update-user', [UserController::class, 'update_user'])->name('update_user')->middleware('check.permission:Update,Users');
 Route::get('dashboard/delete-user/{id?}', [UserController::class, 'delete_user'])->name('delete_user')->middleware('check.permission:Delete,Users');
+Route::get('dashboard/edit-permission/{id?}', [UserController::class, 'edit_permission'])->name('edit_permission')->middleware('check.permission:View,Permissions');
+
+

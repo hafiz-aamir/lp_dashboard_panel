@@ -13,6 +13,8 @@ use Session;
 use Hash;
 use DB;
 use App\Models\User;
+use App\Models\Menu;
+use App\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Lead;
 use Carbon\Carbon; 
@@ -30,7 +32,7 @@ class UserController extends Controller
     
         try {
 
-            $get_all_user = User::all();
+            $get_all_user = User::where('role_id', '!=', '1')->get();
 
             return view('admin_dashboard.user_management', compact('get_all_user'));
         
@@ -136,6 +138,26 @@ class UserController extends Controller
             // dd($get_user);  
 
             return view('admin_dashboard.edit_user', compact('get_user'));
+        
+        }catch(\Exception $e) { 
+
+            return back()->with('error', $e->getMessage());
+
+        }
+
+
+    }
+
+
+
+    public function edit_permission($uuid){
+    
+        try {
+            
+            $module = Menu::where('status', '1')->where('is_dashboard', '1')->get();
+            $permission = Permission::where('status', '1')->where('is_dashboard', '1')->get();
+
+            return view('admin_dashboard.edit_permission', compact('module', 'permission'));
         
         }catch(\Exception $e) { 
 

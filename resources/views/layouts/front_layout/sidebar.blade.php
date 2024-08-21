@@ -1,7 +1,6 @@
 <?php 
 
     $get_route = Request::segment(2);
-    // if(\App\Services\PermissionChecker::checkPermission('Listing', 'Leads')){ echo ''; }else{ echo ''; }
 
 ?>
 
@@ -22,27 +21,29 @@
 
                     <li>
                         <a class="waves-effect waves-dark  <?php if($get_route == "index"){ echo "active"; } ?>" href="{{ route('dashboard') }}" aria-expanded="false">
-                            <img src="{{asset('assets/images/meter.png') }}" alt=""><span class="hide-menu">Dashboard</span>
+                            <img src="{{asset('assets/images/meter.png') }}" alt=""><span class="hide-menu">Dashboard </span>
                         </a>
                     </li>
 
+                    
+                    <!-- Leads -->
                     @if(\App\Services\PermissionChecker::checkPermission('Listing', 'Leads'))
-                        <li>
-                            <a class="waves-effect waves-dark <?php if($get_route == "leads" || $get_route == "leads-detail"){ echo "active"; } ?>" href="{{ route('leads') }}" aria-expanded="false">
-                                <!-- href="leads.php" aria-expanded="false"> -->
-                                <img src="{{asset('assets/images/list.png') }}" alt=""><span class="hide-menu">Leads Lists</span>
-                            </a>
-                        </li>
+                    <li>
+                        <a class="waves-effect waves-dark <?php if($get_route == "leads" || $get_route == "leads-detail"){ echo "active"; } ?>" href="{{ route('leads') }}" aria-expanded="false">
+                            <!-- href="leads.php" aria-expanded="false"> -->
+                            <img src="{{asset('assets/images/list.png') }}" alt=""><span class="hide-menu">Leads Lists</span>
+                        </a>
+                    </li>
                     @endif
                     
-                    <!-- Users -->
 
+                    <!-- Users -->
                     @if(\App\Services\PermissionChecker::checkPermission('Listing', 'Users'))
-                        <li>
-                            <a class="waves-effect waves-dark <?php if($get_route == "user-management" || $get_route == "add-user" ||  $get_route == "edit-user"){ echo "active"; } ?>" href="{{ route('user_management') }}" aria-expanded="false">
-                                <img src="{{asset('assets/images/user-mng.png') }}" alt=""><span class="hide-menu">Users Management</span>
-                            </a>
-                        </li>
+                    <li>
+                        <a class="waves-effect waves-dark <?php if($get_route == "user-management" || $get_route == "add-user" || $get_route == "edit-user" || $get_route == "edit-permission"){ echo "active"; } ?>" href="{{ route('user_management') }}" aria-expanded="false">
+                            <img src="{{asset('assets/images/user-mng.png') }}" alt=""><span class="hide-menu">Users Management</span>
+                        </a>
+                    </li>
                     @endif
 
                 </ul>

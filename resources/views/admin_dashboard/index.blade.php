@@ -14,7 +14,7 @@
 
 
 
-$yearMonth = '2024-08';
+$yearMonth = '2024-07';
 $year = null;
 $month = null;
 
@@ -65,7 +65,7 @@ $dataPointsByStatusJson = json_encode($dataPointsByStatus, JSON_NUMERIC_CHECK);
 <script type="text/javascript">
         window.onload = function() {
             var dataPointsByStatus = <?php echo $dataPointsByStatusJson; ?>;
-            var yearMonth = "<?php echo $yearMonth; ?>"; // Pass yearMonth to JavaScript
+            var yearMonth = "<?php echo $year; ?>"; // Pass yearMonth to JavaScript
 
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
@@ -181,9 +181,11 @@ $dataPointsByStatusJson = json_encode($dataPointsByStatus, JSON_NUMERIC_CHECK);
         <div class="col-md-12">
             <div class="main-page-lead-box ">
                 <div class="d-flex align-items-center mb-3">
-                    <span class="fs-28px fw-bold col-10">Leads Details</span>
+                    <span class="fs-28px fw-bold col-8">  </span>
+                    <!-- <label for="" style="margin-right: 15px;"> Filter </label> -->
                     <select class="form-control">
-                        <option value="">January</option>
+                        <option value="" disabled selected>Filter by year</option>
+                        <option value="">2024</option>
                     </select>
                 </div>
                 <!-- <hr> -->
