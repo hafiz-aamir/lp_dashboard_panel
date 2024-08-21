@@ -29,7 +29,7 @@ trait PermissionTrait
         }
 
         // Super admin role check
-        if ($user->role_id == '1') {
+        if ($user->role_id == '2') {
             return true; 
         }
         else{

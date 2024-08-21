@@ -27,10 +27,7 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Role</th>
+            <th>Brand</th>
             <th>Action</th>
            
         </tr>
@@ -38,28 +35,16 @@
     <tbody>
 
 
-        @foreach($get_all_user as $key => $value)
+        @foreach($get_all_brand as $key => $value)
         <tr>
             <td>
                 <p class="d-flex align-items-center justify-content-start mb-0"> {{ $key + 1 }} </p>
             </td>
             
             <td>
-                <p class="d-flex align-items-center justify-content-start mb-0"> {{ $value->fname }} {{ $value->lname }} </p>
+                <p class="d-flex align-items-center justify-content-start mb-0"> {{ $value->brand }} </p>
             </td>
-            
-            <td>
-                <p class="d-flex align-items-center justify-content-start mb-0"> {{ $value->email }} </p>
-            </td>
-
-            <td>
-                <p class="d-flex align-items-center justify-content-start mb-0"> {{ $value->phone }} </p>
-            </td>
-
-            <td>
-                <p class="d-flex align-items-center justify-content-start mb-0"> {{ $value->role->role }} </p>
-            </td>
-            
+        
             
             <td>
                 <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
@@ -69,6 +54,7 @@
 
                 </p>
             </td>
+
         </tr>
         @endforeach
         

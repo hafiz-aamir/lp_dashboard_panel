@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,14 @@ Route::post('store-add-user', [UserController::class, 'store_add_user'])->name('
 Route::get('dashboard/edit-user/{id?}', [UserController::class, 'edit_user'])->name('edit_user');
 Route::post('update-user', [UserController::class, 'update_user'])->name('update_user');
 Route::get('dashboard/delete-user/{id?}', [UserController::class, 'delete_user'])->name('delete_user');
-Route::get('dashboard/edit-permission/{id?}', [UserController::class, 'edit_permission'])->name('edit_permission');
+
+
+//Brand
+Route::get('dashboard/brand-management', [BrandController::class, 'brand_management'])->name('brand_management');
+Route::get('dashboard/add-brand', [BrandController::class, 'add_brand'])->name('add_brand');
+Route::post('store-add-brand', [BrandController::class, 'store_add_brand'])->name('store_add_brand');
+Route::get('dashboard/edit-brand/{id?}', [BrandController::class, 'edit_brand'])->name('edit_brand');
+Route::post('update-brand', [BrandController::class, 'update_brand'])->name('update_brand');
+Route::get('dashboard/delete-brand/{id?}', [BrandController::class, 'delete_brand'])->name('delete_brand');
 
 

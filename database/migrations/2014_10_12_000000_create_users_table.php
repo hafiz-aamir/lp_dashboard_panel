@@ -27,6 +27,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role_id');
+            $table->string('brand_id');
             $table->longText('image')->nullable();
             $table->string('ip'); 
             $table->string('auth_id')->default('1');

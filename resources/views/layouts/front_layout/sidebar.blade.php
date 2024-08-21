@@ -39,8 +39,14 @@
                     <!-- Users -->
                    
                     <li>
-                        <a class="waves-effect waves-dark <?php if($get_route == "user-management" || $get_route == "add-user" || $get_route == "edit-user" || $get_route == "edit-permission"){ echo "active"; } ?>" href="{{ route('user_management') }}" aria-expanded="false">
+                        <a class="waves-effect waves-dark <?php if($get_route == "user-management" || $get_route == "add-user" || $get_route == "edit-user"){ echo "active"; } ?>" href="{{ route('user_management') }}" aria-expanded="false">
                             <img src="{{asset('assets/images/user-mng.png') }}" alt=""><span class="hide-menu">Users Management</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="waves-effect waves-dark <?php if($get_route == "brand-management" || $get_route == "add-brand" || $get_route == "edit-brand"){ echo "active"; } ?>" href="{{ route('brand_management') }}" aria-expanded="false">
+                            <img src="{{asset('assets/images/user-mng.png') }}" alt=""><span class="hide-menu">Brands Management</span>
                         </a>
                     </li>
 

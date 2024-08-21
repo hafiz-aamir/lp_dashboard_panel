@@ -16,53 +16,41 @@ use App\Models\User;
 use App\Models\Menu;
 use App\Models\Permission;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Lead;
+use App\Models\Brand;
 use Carbon\Carbon; 
 use Illuminate\Support\Str;
 
 
-class UserController extends Controller
+class BrandController extends Controller
 {
     
-    public function user_management(){
+    public function brand_management(){
     
         try {
 
-            $get_all_user = User::where('role_id', '!=', '2')->get();
+            $get_all_brand = Brand::where('status','1')->get();
 
-            return view('admin_dashboard.user_management', compact('get_all_user'));
+            return view('admin_dashboard.brand_management', compact('get_all_brand'));
         
         }catch(\Exception $e) { 
 
-            return response()->json([
-
-                'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Server error',
-                'error' => $e->getMessage(),
-
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-
+            return back()->with('error', $e->getMessage());
+          
         }
 
 
     }
 
 
-    public function add_user(){
+    public function add_brand(){
     
         try {
             
-            return view('admin_dashboard.add_user');
+            return view('admin_dashboard.add_brand');
         
         }catch(\Exception $e) { 
 
-            return response()->json([
-
-                'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Server error',
-                'error' => $e->getMessage(),
-
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return back()->with('error', $e->getMessage());
 
         }
 
@@ -71,7 +59,7 @@ class UserController extends Controller
 
 
 
-    public function store_add_user(Request $request){
+    public function store_add_brand(Request $request){
 
 
             $validated = $request->validate([
@@ -92,7 +80,7 @@ class UserController extends Controller
                 $ipAddress = getHostByName(getHostName());
                 $auth_id = Auth::user()->uuid;
 
-                $user = User::create([
+                $user = Brand::create([
 
                     'uuid' =>  Str::uuid(),
                     'fname' => $validated['fname'],
@@ -109,7 +97,7 @@ class UserController extends Controller
 
                 if($user){
                 
-                    return redirect()->route('user_management')->with('message', 'Record added successfull');
+                    return redirect()->route('brand_management')->with('message', 'Record added successfull');
                     
                 }
 
@@ -125,15 +113,15 @@ class UserController extends Controller
 
 
 
-    public function edit_user($uuid){
+    public function edit_brand($uuid){
     
         try {
         
-            $get_user = User::where('uuid', $uuid)->first();
+            $get_brand = Brand::where('uuid', $uuid)->first();
             
-            // dd($get_user);  
+            // dd($get_brand);  
 
-            return view('admin_dashboard.edit_user', compact('get_user'));
+            return view('admin_dashboard.edit_brand', compact('get_brand'));
         
         }catch(\Exception $e) { 
 
@@ -144,21 +132,21 @@ class UserController extends Controller
     }
 
 
-    public function update_user(Request $request){
+    public function update_brand(Request $request){
     
         try {
         
-            $upd_user = User::find($request->id)->first();
+            $upd_brand = Brand::find($request->id)->first();
             
-            if(!$upd_user){
+            if(!$upd_brand){
                 return back()->with('error', 'Record not found');
             }
 
-            $upd_user->fill($request->all());
-            $upd_usr = $upd_user->save();
+            $upd_brand->fill($request->all());
+            $upd_usr = $upd_brand->save();
 
             if($upd_usr){
-                return redirect()->route('user_management')->with('message', 'Record updated successfull');
+                return redirect()->route('brand_management')->with('message', 'Record updated successfull');
             } 
         
         }catch(\Exception $e) { 
@@ -171,7 +159,7 @@ class UserController extends Controller
 
 
 
-    public function delete_user($uuid){
+    public function delete_brand($uuid){
     
         try {
         
@@ -187,6 +175,5 @@ class UserController extends Controller
 
 
     }
-    
 
 }
