@@ -52,12 +52,25 @@ Route::post('update-user', [UserController::class, 'update_user'])->name('update
 Route::get('dashboard/delete-user/{id?}', [UserController::class, 'delete_user'])->name('delete_user');
 
 
-//Brand
-Route::get('dashboard/brand-management', [BrandController::class, 'brand_management'])->name('brand_management');
-Route::get('dashboard/add-brand', [BrandController::class, 'add_brand'])->name('add_brand');
-Route::post('store-add-brand', [BrandController::class, 'store_add_brand'])->name('store_add_brand');
-Route::get('dashboard/edit-brand/{id?}', [BrandController::class, 'edit_brand'])->name('edit_brand');
-Route::post('update-brand', [BrandController::class, 'update_brand'])->name('update_brand');
-Route::get('dashboard/delete-brand/{id?}', [BrandController::class, 'delete_brand'])->name('delete_brand');
+if(Auth::check())
+{
+
+    if(Auth::user()->role_id == "2")
+    {
+
+        //Brand
+        Route::get('dashboard/brand-management', [BrandController::class, 'brand_management'])->name('brand_management');
+        Route::get('dashboard/add-brand', [BrandController::class, 'add_brand'])->name('add_brand');
+        Route::post('store-add-brand', [BrandController::class, 'store_add_brand'])->name('store_add_brand');
+        Route::get('dashboard/edit-brand/{id?}', [BrandController::class, 'edit_brand'])->name('edit_brand');
+        Route::post('update-brand', [BrandController::class, 'update_brand'])->name('update_brand');
+        Route::get('dashboard/delete-brand/{id?}', [BrandController::class, 'delete_brand'])->name('delete_brand');
+
+    }
+    elseif(Auth::user()->role_id == "3")
+    {
+
+    }
 
 
+}
