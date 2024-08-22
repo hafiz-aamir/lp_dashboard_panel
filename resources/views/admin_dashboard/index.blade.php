@@ -155,9 +155,10 @@ chart.render();
 
     <div class="addUserBox card mt-4">
         
-        <div class="col-md-4">
-
-            <select name="month_year" id="month_year" onchange="redirectToDashboard()" class="form-control">
+        <div class="col-md-4 d-flex">
+            
+            <span style="border: 1px solid #a9adb3;  padding: 10px; border-radius: 5px;" class="fa fa-filter"></span>
+            <select style="border: 1px solid #9babc5;" name="month_year" id="month_year" onchange="redirectToDashboard()" class="form-control">
                 
                 <?php
                 
