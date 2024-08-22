@@ -83,6 +83,8 @@
                                 
                             </div>
 
+
+                            @if(Auth::user()->role_id == "2")
                             <div class="col-lg-6">
                                 <div class="addUserInp py-2">
                                     <label for="">Select Status</label>
@@ -115,6 +117,7 @@
 
 
                             </div>
+                            @endif
 
                             
 

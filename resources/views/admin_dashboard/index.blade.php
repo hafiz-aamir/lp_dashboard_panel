@@ -32,16 +32,40 @@ else{
 }
 
 
-$get_pending_leads1 = Lead::where('status', '0')->count();
-$get_inprogress_leads1 = Lead::where('status', '1')->count();
-$get_completed_leads1 = Lead::where('status', '2')->count();
-$get_rejected_leads1 = Lead::where('status', '3')->count();
+if(Auth::user()->role_id == "2")
+{
+
+    $get_pending_leads1 = Lead::where('status', '0')->count();
+    $get_inprogress_leads1 = Lead::where('status', '1')->count();
+    $get_completed_leads1 = Lead::where('status', '2')->count();
+    $get_rejected_leads1 = Lead::where('status', '3')->count();
 
 
-$get_pending_leads = Lead::where('status', '0')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
-$get_inprogress_leads = Lead::where('status', '1')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
-$get_completed_leads = Lead::where('status', '2')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
-$get_rejected_leads = Lead::where('status', '3')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
+    $get_pending_leads = Lead::where('status', '0')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
+    $get_inprogress_leads = Lead::where('status', '1')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
+    $get_completed_leads = Lead::where('status', '2')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
+    $get_rejected_leads = Lead::where('status', '3')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
+
+
+}
+elseif(Auth::user()->role_id == "3")
+{
+    
+    $selectedBrandIds = explode(',', Auth::user()->brand_id); 
+
+    $get_pending_leads1 = Lead::whereIn('brand_name', $selectedBrandIds)->where('status', '0')->count();
+    $get_inprogress_leads1 = Lead::whereIn('brand_name', $selectedBrandIds)->where('status', '1')->count();
+    $get_completed_leads1 = Lead::whereIn('brand_name', $selectedBrandIds)->where('status', '2')->count();
+    $get_rejected_leads1 = Lead::whereIn('brand_name', $selectedBrandIds)->where('status', '3')->count();
+
+
+    $get_pending_leads = Lead::whereIn('brand_name', $selectedBrandIds)->where('status', '0')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
+    $get_inprogress_leads = Lead::whereIn('brand_name', $selectedBrandIds)->where('status', '1')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
+    $get_completed_leads = Lead::whereIn('brand_name', $selectedBrandIds)->where('status', '2')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
+    $get_rejected_leads = Lead::whereIn('brand_name', $selectedBrandIds)->where('status', '3')->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
+
+}
+
 
 
 $dataPoints = array( 

@@ -76,7 +76,7 @@ border-radius: 5px;
             <td>
                 <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
                     
-                    <a href="{{ route('edit_brand', ['id' => $value->uuid]) }}" class="table-button btn-edit-user">Edit Brand</a>
+                    <a href="{{ route('edit_brand', ['id' => $value->uuid]) }}" class="table-button btn-edit-user">Edit </a>
                     <!-- <a href="{{ route('delete_brand', ['id' => $value->uuid]) }}" onclick="return confirm('are you sure?')" class="table-button btn-delete">Delete</a> -->
 
                 </p>

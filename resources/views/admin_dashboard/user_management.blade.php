@@ -22,7 +22,7 @@ border-radius: 5px;
 .select2-container--default.select2-container--disabled .select2-selection--multiple {
     background-color: #eee;
     cursor: default;
-    width: 400px !important;
+    width: 250px !important;
 }
 
 </style>
@@ -39,7 +39,9 @@ border-radius: 5px;
 <div class="main-dashboard-content-parent">
     <div class="page-heading d-flex align-items-center justify-content-between">
         <h3 class="text-themecolor fw-bold">Users Management</h3>
-        <a class="add-user-btn font-semibold" href="{{ route('add_user') }}">Add New User</a>
+        @if(Auth::user()->role_id == "2")
+            <a class="add-user-btn font-semibold" href="{{ route('add_user') }}">Add New User</a>
+        @endif
     </div>
 
     <div class="table-card mt-4">
@@ -104,7 +106,7 @@ border-radius: 5px;
             <td>
                 <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
                     
-                    <a href="{{ route('edit_user', ['id' => $value->uuid]) }}" class="table-button btn-edit-user">Edit User</a>
+                    <a href="{{ route('edit_user', ['id' => $value->uuid]) }}" class="table-button btn-edit-user">Edit </a>
                     <!-- <a href="{{ route('delete_user', ['id' => $value->uuid]) }}" onclick="return confirm('are you sure?')" class="table-button btn-delete">Delete</a> -->
 
                 </p>

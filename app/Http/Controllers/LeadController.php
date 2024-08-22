@@ -32,8 +32,15 @@ class LeadController extends Controller
     
         try {
         
-            $get_brand = Brand::where('status', '1')->get();
-            // dd($get_brand);
+            if(Auth::user()->role_id == "2")
+            {
+                $get_brand = Brand::where('status', '1')->get();
+            }
+            elseif(Auth::user()->role_id == "3")
+            {
+                $selectedBrandIds = explode(',', Auth::user()->brand_id); 
+                $get_brand = Brand::whereIn('brand', $selectedBrandIds)->where('status', '1')->get();
+            }
             
             return view('admin_dashboard.leads', compact('get_brand'));
         
@@ -69,10 +76,23 @@ class LeadController extends Controller
     public function leads_filter(Request $request){
     
         try {
-        
-            $selectedBrands = $request->query('brandname', []);
-            $get_brand = Brand::where('status', '1')->get();
-            $leads = Lead::whereIn('brand_name', $selectedBrands)->orderBy('created_at', 'asc')->get();
+
+
+            if(Auth::user()->role_id == "2")
+            {
+                
+                $selectedBrands = $request->query('brandname', []);
+                $get_brand = Brand::where('status', '1')->get();
+                $leads = Lead::whereIn('brand_name', $selectedBrands)->orderBy('created_at', 'asc')->get();
+
+            }
+            elseif(Auth::user()->role_id == "3")
+            {
+                $selectedBrandIds = explode(',', Auth::user()->brand_id); 
+                $selectedBrands = $request->query('brandname', []);
+                $get_brand = Brand::WhereIn('brand', $selectedBrandIds)->where('status', '1')->get();
+                $leads = Lead::whereIn('brand_name', $selectedBrands)->orderBy('created_at', 'asc')->get();
+            }
 
             // dump($leads);
 
@@ -111,12 +131,25 @@ class LeadController extends Controller
     
     public function getLeads(Request $request)
     {
-        // Fetching all leads
-        $leads = Lead::orderBy('created_at', 'asc')->get();
-
-        // $formattedDate = Carbon::parse($lead['created_at'])->format('Y-m-d h:i A');
-        // $lead['created_at'] = $formattedDate;
         
+
+        if(Auth::user()->role_id == "2")
+        {
+           
+            // Fetching all leads
+            $leads = Lead::orderBy('created_at', 'asc')->get();
+
+        }
+        elseif(Auth::user()->role_id == "3")
+        {
+         
+            // Fetching By Brands
+            $selectedBrandIds = explode(',', Auth::user()->brand_id); 
+            $leads = Lead::whereIn('brand_name', $selectedBrandIds)->orderBy('created_at', 'asc')->get();
+            
+        }
+
+      
         return response()->json($leads);
     }
 

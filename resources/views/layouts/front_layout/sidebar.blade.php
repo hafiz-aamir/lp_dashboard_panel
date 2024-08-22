@@ -37,18 +37,28 @@
                     
 
                     <!-- Users -->
-                   
+                    @if(Auth::user()->role_id == "2")
                     <li>
                         <a class="waves-effect waves-dark <?php if($get_route == "user-management" || $get_route == "add-user" || $get_route == "edit-user"){ echo "active"; } ?>" href="{{ route('user_management') }}" aria-expanded="false">
                             <img src="{{asset('assets/images/user-mng.png') }}" alt=""><span class="hide-menu">Users Management</span>
                         </a>
                     </li>
+                    @elseif(Auth::user()->role_id == "3")
+                    <li>
+                        <a class="waves-effect waves-dark <?php if($get_route == "user-management" || $get_route == "add-user" || $get_route == "edit-user"){ echo "active"; } ?>" href="{{ route('user_management') }}" aria-expanded="false">
+                            <img src="{{asset('assets/images/user-mng.png') }}" alt=""><span class="hide-menu">Profile Update</span>
+                        </a>
+                    </li>
+                    @endif
 
+
+                    @if(Auth::user()->role_id == "2")
                     <li>
                         <a class="waves-effect waves-dark <?php if($get_route == "brand-management" || $get_route == "add-brand" || $get_route == "edit-brand"){ echo "active"; } ?>" href="{{ route('brand_management') }}" aria-expanded="false">
                             <img src="{{asset('assets/images/list.png') }}" alt=""><span class="hide-menu">Brands Management</span>
                         </a>
                     </li>
+                    @endif
 
                 </ul>
 

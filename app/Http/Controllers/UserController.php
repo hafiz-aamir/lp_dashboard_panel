@@ -34,7 +34,18 @@ class UserController extends Controller
     
         try {
 
-            $get_all_user = User::where('role_id', '!=', '2')->get();
+            if(Auth::user()->role_id == "2")
+            {
+                
+                $get_all_user = User::where('role_id', '!=', '2')->get();
+
+            }
+            elseif(Auth::user()->role_id == "3")
+            {
+                $get_all_user = User::where('id', Auth::user()->id)->get();
+            }
+
+            
 
             return view('admin_dashboard.user_management', compact('get_all_user'));
         
@@ -154,7 +165,7 @@ class UserController extends Controller
             'lname' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'required',
-            'brand_id' => 'required|array',
+            'brand_id' => '',
 
         ]);
 
@@ -170,8 +181,14 @@ class UserController extends Controller
                 return back()->with('error', 'Record not found');
             }
 
-            $brandIds = implode(',', $request->brand_id);
-            $request['brand_id'] = $brandIds;
+            if($request->brand_id)
+            {
+
+                $brandIds = implode(',', $request->brand_id);
+                $request['brand_id'] = $brandIds;
+
+            }
+            
             $upd_user->fill($request->all());
             
             $isSaved = $upd_user->save();
