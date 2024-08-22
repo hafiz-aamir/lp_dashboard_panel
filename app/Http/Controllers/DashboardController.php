@@ -38,13 +38,7 @@ class DashboardController extends Controller
         
         }catch(\Exception $e) { 
 
-            return response()->json([
-
-                'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Server error',
-                'error' => $e->getMessage(),
-
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return redirect()->back()->with('error', $e->getMessage());
 
         }
 

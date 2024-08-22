@@ -13,6 +13,7 @@ use Session;
 use Hash;
 use DB;
 use App\Models\User;
+use App\Models\Brand;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Lead;
 use Carbon\Carbon; 
@@ -22,24 +23,23 @@ use Illuminate\Support\Str;
 class LeadController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function leads(){
     
         try {
         
+            $get_brand = Brand::where('status', '1')->get();
+            // dd($get_brand);
             
-            
-            return view('admin_dashboard.leads');
+            return view('admin_dashboard.leads', compact('get_brand'));
         
         }catch(\Exception $e) { 
 
-            return response()->json([
-
-                'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Server error',
-                'error' => $e->getMessage(),
-
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return back()->with('error', $e->getMessage());
 
         }
 
@@ -57,13 +57,30 @@ class LeadController extends Controller
         
         }catch(\Exception $e) { 
 
-            return response()->json([
+            return back()->with('error', $e->getMessage());
 
-                'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Server error',
-                'error' => $e->getMessage(),
+        }
 
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+
+    }
+
+
+
+    public function leads_filter(Request $request){
+    
+        try {
+        
+            $selectedBrands = $request->query('brandname', []);
+            $get_brand = Brand::where('status', '1')->get();
+            $leads = Lead::whereIn('brand_name', $selectedBrands)->orderBy('created_at', 'asc')->get();
+
+            // dump($leads);
+
+            return view('admin_dashboard.leads_filter', compact('get_brand', 'selectedBrands', 'leads'));
+        
+        }catch(\Exception $e) { 
+
+            return back()->with('error', $e->getMessage());
 
         }
 
@@ -83,13 +100,7 @@ class LeadController extends Controller
         
         }catch(\Exception $e) { 
 
-            return response()->json([
-
-                'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Server error',
-                'error' => $e->getMessage(),
-
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return back()->with('error', $e->getMessage());
 
         }
 

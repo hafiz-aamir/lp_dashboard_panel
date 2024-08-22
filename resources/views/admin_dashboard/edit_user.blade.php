@@ -57,12 +57,12 @@
                                 <div class="addUserInp py-2">
                                     <label for="">First Name</label>
                                     <input name="fname" value="{{ $get_user->fname }}" class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter user first name">
-                                        
-                                    
+                                    @error('fname') <div class="error">{{ $message }}</div> @enderror
                                 </div>
                                 <div class="addUserInp py-2">
                                     <label for="">Email</label>
                                     <input name="email" value="{{ $get_user->email }}" class="inpCust py-3 d-lg-block form-control my-1" type="email" placeholder="Enter user email">
+                                    @error('email') <div class="error">{{ $message }}</div> @enderror
                                 </div>
                                 
                             </div>
@@ -70,11 +70,13 @@
                                 <div class="addUserInp py-2">
                                     <label for="">Last Name</label>
                                     <input name="lname" value="{{ $get_user->lname }}" class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter user last name">
+                                    @error('lname') <div class="error">{{ $message }}</div> @enderror
                                 </div>
                                
                                 <div class="addUserInp py-2">
                                     <label for="">Phone Number</label>
                                     <input name="phone" value="{{ $get_user->phone }}" class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter user last name">
+                                    @error('phone') <div class="error">{{ $message }}</div> @enderror
                                 </div>
                                 
                                 
@@ -89,6 +91,8 @@
                                         <option <?php if($get_user->status == "1"){ echo 'selected'; } ?> value="1">Active</option>
                                         <option <?php if($get_user->status == "0"){ echo 'selected'; } ?> value="0">InActive</option>
                                     </select>
+                                    @error('status') <div class="error">{{ $message }}</div> @enderror
+                                    
                                 </div>
                                 
                             </div>
@@ -105,8 +109,10 @@
                                                 {{ $val_brand->brand }}
                                             </option>
                                         @endforeach
-                                    </select>  
+                                    </select> 
+                                    @error('brand_id') <div class="error">{{ $message }}</div> @enderror 
                                 </div>
+
 
                             </div>
 

@@ -159,3 +159,13 @@
         });
     });
 </script>
+
+
+<script>
+    $(document).ready(function() {
+        $('.select1').select2({
+            placeholder: "-- No brand yet --", // Placeholder text
+            allowClear: false // Option to clear the selection
+        });
+    });
+</script>

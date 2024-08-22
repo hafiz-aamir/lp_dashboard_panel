@@ -36,6 +36,7 @@ Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dash
 
 //Leads
 Route::get('dashboard/leads', [LeadController::class, 'leads'])->name('leads');
+Route::get('dashboard/leads-filter', [LeadController::class, 'leads_filter'])->name('leads_filter');
 Route::get('dashboard/leads-detail/{id?}', [LeadController::class, 'leads_detail'])->name('leads_detail');
 Route::get('dashboard/leads-api/{id?}', [LeadController::class, 'leads_api'])->name('leads_api');
 Route::get('dashboard/update-leads-detail/{id?}/{status?}', [LeadController::class, 'update_leads_detail'])->name('update_leads_detail');

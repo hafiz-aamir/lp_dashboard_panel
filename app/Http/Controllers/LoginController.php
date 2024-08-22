@@ -38,13 +38,7 @@ class LoginController extends Controller
         
         }catch(\Exception $e) { 
 
-            return response()->json([
-
-                'status_code' => 500,
-                'message' => 'Server error',
-                'error' => $e->getMessage(),
-
-            ], 500);
+            return redirect()->back()->with('error', $e->getMessage());
 
         }
 
@@ -83,13 +77,7 @@ class LoginController extends Controller
             
         }catch(\Exception $e) { 
 
-            return response()->json([
-
-                'status_code' => 500,
-                'message' => 'Server error',
-                'error' => $e->getMessage(),
-
-            ], 500);
+            return redirect()->back()->with('error', $e->getMessage());
 
         }
     

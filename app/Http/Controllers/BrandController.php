@@ -23,12 +23,17 @@ use Illuminate\Support\Str;
 
 class BrandController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
     public function brand_management(){
     
         try {
 
-            $get_all_brand = Brand::where('status','1')->get();
+            $get_all_brand = Brand::all();
 
             return view('admin_dashboard.brand_management', compact('get_all_brand'));
         
@@ -82,6 +87,28 @@ class BrandController extends Controller
 
 
                 if($user){
+
+
+                    // $data = [
+            
+                    //     'details'=>[
+                         
+                    //         'heading' => "Brand Add",
+                    //         'Email'   => 'custombackend@gmail.com',
+                    //         'WebsiteName'   => 'Demo Website',
+
+                    //     ]
+                    
+                    // ];
+
+                    // $senMail = Mail::send('emailtemplate/demo_template', $data, function($message) use ($data){
+            
+                    //     $message->from(config('app.from_email'), $data['details']['WebsiteName']); 
+            
+                    //     $message->to($data['details']['Email'])->subject($data['details']['heading']);
+                    
+                    // });
+
                 
                     return redirect()->route('brand_management')->with('message', 'Record added successfull');
                     
@@ -129,25 +156,31 @@ class BrandController extends Controller
 
         ]);
 
+        // dd($request->all());
     
         try {
         
-            $upd_brand = Brand::find($request->id)->first();
+            $upd_brand = Brand::where('id', $request->id)->first();
             
             if(!$upd_brand){
                 return back()->with('error', 'Record not found');
             }
 
+            $request['brand'] =  $request->brand;
+            $request['status'] =  $request->status;
             $upd_brand->fill($request->all());
-            $upd_brand = $upd_brand->save();
 
-            if($upd_brand){
+            $upd_brandd = $upd_brand->save();
+
+            if($upd_brandd){
                 return redirect()->route('brand_management')->with('message', 'Record updated successfull');
-            } 
+            }else {
+                return back()->with('error', 'Failed to update record');
+            }
         
         }catch(\Exception $e) { 
 
-            return back()->with('error', $e->getMessage());
+            return back()->with('error', 'Something went wrong');
         }
 
 

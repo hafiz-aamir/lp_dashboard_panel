@@ -24,6 +24,11 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
     public function user_management(){
     
@@ -35,13 +40,7 @@ class UserController extends Controller
         
         }catch(\Exception $e) { 
 
-            return response()->json([
-
-                'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Server error',
-                'error' => $e->getMessage(),
-
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return back()->with('error', $e->getMessage());
 
         }
 
@@ -59,13 +58,7 @@ class UserController extends Controller
         
         }catch(\Exception $e) { 
 
-            return response()->json([
-
-                'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Server error',
-                'error' => $e->getMessage(),
-
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return back()->with('error', $e->getMessage());
 
         }
 

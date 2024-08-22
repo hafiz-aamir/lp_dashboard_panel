@@ -19,6 +19,12 @@ border-radius: 5px;
 
 }
 
+.select2-container--default.select2-container--disabled .select2-selection--multiple {
+    background-color: #eee;
+    cursor: default;
+    width: 400px !important;
+}
+
 </style>
 @endsection
 
@@ -45,7 +51,8 @@ border-radius: 5px;
             <th>Full Name</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>Role</th>
+            <th>Brands</th>
+            <th>Role</th>   
             <th>Status</th>
             <th>Action</th>
            
@@ -70,6 +77,20 @@ border-radius: 5px;
 
             <td>
                 <p class="d-flex align-items-center justify-content-start mb-0"> {{ $value->phone }} </p>
+            </td>
+
+            <td>
+                <?php 
+                    $selectedBrandIds = explode(',', $value->brand_id); 
+                    $get_brand = DB::table('brands')->where('status', '1')->get();
+                ?>
+                <select disabled class="select1 inpCust py-3 d-lg-block form-control my-1" multiple>
+                    @foreach($get_brand as $key => $val_brand)
+                        <option <?php if(in_array($val_brand->brand, $selectedBrandIds)){ echo 'selected'; } ?>>
+                            {{ $val_brand->brand }}
+                        </option>
+                    @endforeach
+                </select>  
             </td>
 
             <td>

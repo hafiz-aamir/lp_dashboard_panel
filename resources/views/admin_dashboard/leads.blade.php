@@ -3,17 +3,23 @@
 @section('css')
 <style>
 
+.select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    cursor: text;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    position: relative;
+    height: 38px;
+}
 
 </style>
 @endsection
 
 @section('content')
 
-<?php 
 
-  // if(\App\Services\PermissionChecker::checkPermission('Listing', 'Leads')){ echo ''; }else{ echo ''; }
-  
-?>
 
 <div class="main-dashboard-content-parent">
         
@@ -21,9 +27,43 @@
             <h3 class="text-themecolor fw-bold">Leads Lists</h3>
         </div>
 
+        <div class="row">
+
+            <div class="col-md-6">
+
+            </div>
+            
+            <div class="col-md-6">
+            
+                <form action="{{route('leads_filter')}}">
+
+                    <div class="row">
+
+                        <div class="col-md-10">
+                            <select class="select2 form-control" name="brandname[]"  multiple required>
+                                @foreach($get_brand as $key => $val_brand)
+                                    <option value="{{$val_brand->brand}}"> {{ $val_brand->brand }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                        
+                            <button class="btn btn-primary" type="submit"> <span class="fa fa-filter"></span> filter </button>
+                        
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
         <div class="table-card mt-4">
 
-        <table class="table table-responsive table-hover text-center">
+        <table class="table table-responsive table-hover">
         <thead>
             <tr>
                 <th>ID</th>
@@ -33,7 +73,7 @@
                 <th>Brand Name</th>
                 <th>Page</th>
                 <th>Created At</th>
-                <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
 

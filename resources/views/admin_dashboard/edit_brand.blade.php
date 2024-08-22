@@ -29,10 +29,10 @@
             @csrf
 
             <div class="row">
-                <div class="col-lg-10">
+                <div class="col-lg-12">
 
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 
                                 <div class="addUserInp py-2">
                                     <label for="">Brand Name</label>
@@ -41,6 +41,18 @@
                                     
                                     <input type="hidden" name="id" value="{{ $get_brand->id }}">
 
+                                </div>
+                                
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="addUserInp py-2">
+                                    <label for="">Select Status</label>
+                                    <select name="status" class="inpCust py-3 d-lg-block form-control my-1">
+                                        <option value="1" disabled selected>-- Select Status --</option>
+                                        <option <?php if($get_brand->status == "1"){ echo 'selected'; } ?> value="1">Active</option>
+                                        <option <?php if($get_brand->status == "0"){ echo 'selected'; } ?> value="0">InActive</option>
+                                    </select>
                                 </div>
                                 
                             </div>
