@@ -41,7 +41,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	},
 	data: [{
 		type: "column",
-		yValueFormatString: "#,##0.## tonnes",
+		yValueFormatString: "#,##0.## Leads",
 		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
 	}]
 });
