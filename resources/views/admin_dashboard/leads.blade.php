@@ -125,7 +125,6 @@
                     <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
                         <button class="table-button btn btn-${color.toLowerCase().replace(' ', '')}">${statusText}</button>
                         <a href="/dashboard/leads-detail/${lead.uuid}" class="table-button btn-viewlead">View Lead</a>
-                        <a href="/dashboard/leads-api/${lead.uuid}" class="table-button btn-edit-user">API</a>
                     </p>
                     </td>
                 </tr>`;
