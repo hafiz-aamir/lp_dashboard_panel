@@ -43,7 +43,7 @@ border-radius: 5px;
             <h3 class="text-themecolor fw-bold">Users Management</h3>
             <a class="add-user-btn font-semibold" href="{{ route('add_user') }}">Add New User</a>
         @endif
-    
+        
     </div>
 
     <div class="table-card mt-4">

@@ -91,6 +91,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	},
 	data: [{
 		type: "spline",
+        indexLabel: "{y}",
 		yValueFormatString: "#,##0.## Leads",
 		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
 	}]
@@ -152,7 +153,7 @@ chart.render();
         </div>
     </div>  
 
-    <div class="addUserBox mt-4">
+    <div class="addUserBox card mt-4">
         
         <div class="col-md-4">
 
