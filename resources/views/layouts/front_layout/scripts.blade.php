@@ -142,3 +142,20 @@
     });
 </script>
 @endif
+
+
+<!-- Include Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Include Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "-- Select Brand --", // Placeholder text
+            allowClear: true // Option to clear the selection
+        });
+    });
+</script>

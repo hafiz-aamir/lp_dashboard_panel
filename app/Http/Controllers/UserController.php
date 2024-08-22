@@ -17,6 +17,7 @@ use App\Models\Menu;
 use App\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Lead;
+use App\Models\Brand;
 use Carbon\Carbon; 
 use Illuminate\Support\Str;
 
@@ -52,7 +53,9 @@ class UserController extends Controller
     
         try {
             
-            return view('admin_dashboard.add_user');
+            $get_brand = Brand::where('status', '1')->get();
+
+            return view('admin_dashboard.add_user', compact('get_brand'));
         
         }catch(\Exception $e) { 
 
@@ -79,9 +82,11 @@ class UserController extends Controller
                 'fname' => 'required|string|max:255',
                 'lname' => 'required|string|max:255',
                 'email' => 'required|email',
+                'phone' => 'required',
+                'brand_id' => 'required|array',
                 'password' => 'required|string|min:8|confirmed',
                 'password_confirmation' => 'required_with:password|string|min:8',
-                'role_id' => 'required'
+                'role_id' => 'required|numeric'
 
             ]);
     
@@ -91,14 +96,17 @@ class UserController extends Controller
                 // dd($request->all());
                 $ipAddress = getHostByName(getHostName());
                 $auth_id = Auth::user()->uuid;
+                $brandIds = implode(',', $request->brand_id);
 
+                // dd($brandIds);
                 $user = User::create([
 
                     'uuid' =>  Str::uuid(),
                     'fname' => $validated['fname'],
                     'lname' => $validated['lname'],
                     'email' => $validated['email'],
-                    'phone' => 'XXXX-XXXX-XXXX',
+                    'brand_id' => $brandIds,
+                    'phone' => $validated['phone'], 
                     'password' => bcrypt($validated['password']),
                     'role_id' => $validated['role_id'],
                     'ip' => $ipAddress,
@@ -130,10 +138,10 @@ class UserController extends Controller
         try {
         
             $get_user = User::where('uuid', $uuid)->first();
-            
+            $get_brand = Brand::where('status', '1')->get();
             // dd($get_user);  
 
-            return view('admin_dashboard.edit_user', compact('get_user'));
+            return view('admin_dashboard.edit_user', compact('get_user', 'get_brand'));
         
         }catch(\Exception $e) { 
 
@@ -146,20 +154,42 @@ class UserController extends Controller
 
     public function update_user(Request $request){
     
+        // dd($request->all());
+        $validated = $request->validate([
+
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'brand_id' => 'required|array',
+
+        ]);
+
+       
+        
         try {
         
-            $upd_user = User::find($request->id)->first();
+           
+            $upd_user = User::find($request->id);
+
             
-            if(!$upd_user){
+            if (!$upd_user) {
                 return back()->with('error', 'Record not found');
             }
 
+            $brandIds = implode(',', $request->brand_id);
+            $request['brand_id'] = $brandIds;
             $upd_user->fill($request->all());
-            $upd_usr = $upd_user->save();
+            
+            $isSaved = $upd_user->save();
 
-            if($upd_usr){
-                return redirect()->route('user_management')->with('message', 'Record updated successfull');
-            } 
+           
+            if ($isSaved) {
+                return redirect()->route('user_management')->with('message', 'Record updated successfully');
+            } else {
+                return back()->with('error', 'Failed to update record');
+            }
+
         
         }catch(\Exception $e) { 
 

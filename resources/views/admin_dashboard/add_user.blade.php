@@ -7,6 +7,21 @@
     color: red;
 }
 
+.select2-container .select2-selection--multiple {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    min-height: 50px !important;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid black 1px;
+    outline: 0;
+    padding: 5px !important;
+}
+
 </style>
 @endsection
 
@@ -50,6 +65,11 @@
                             <input name="password" value="{{ old('password') }}" class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter New Password">
                             @error('password') <div class="error">{{ $message }}</div> @enderror
                         </div>
+                        <div class="addUserInp py-2">
+                            <label for="">Confirm Password</label>
+                            <input name="password_confirmation" value="{{ old('password_confirmation') }}"  class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter New Password">
+                            @error('password_confirmation') <div class="error">{{ $message }}</div> @enderror
+                        </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="addUserInp py-2">
@@ -62,17 +82,30 @@
                             <select name="role_id" class="inpCust py-3 d-lg-block form-control my-1">
                                 <option value="" disabled>-- Select Brand --</option>
                                 <!-- <option value="1">Super Admin</option> -->
-                                <option value="2">Admin</option>
+                                <option value="3"> User </option>
                             </select>
+                            @error('role_id') <div class="error">{{ $message }}</div> @enderror
                         </div>
+
                         <div class="addUserInp py-2">
-                            <label for="">Confirm Password</label>
-                            <input name="password_confirmation" value="{{ old('password_confirmation') }}"  class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter New Password">
-                            @error('password_confirmation') <div class="error">{{ $message }}</div> @enderror
+                            <label for="">Select Brand</label>
+                            <select name="brand_id[]" class="select2 inpCust py-3 d-lg-block form-control my-1" multiple>
+                                @foreach($get_brand as $key => $val_brand)
+                                <option value="{{ $val_brand->brand }}"> {{ $val_brand->brand }} </option>
+                                @endforeach
+                            </select>
+                            @error('brand_id') <div class="error">{{ $message }}</div> @enderror
                         </div>
+
+                        <div class="addUserInp py-2">
+                            <label for="">Phone Number</label>
+                            <input name="phone" value="{{ old('phone') }}" class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter Phone Number">
+                            @error('phone') <div class="error">{{ $message }}</div> @enderror
+                        </div>
+                        
                     </div>
                 </div>
-                <button class="add-user-btn font-semibold mt-4 d-table border-0" href="">Confirm</button>
+                <button class="add-user-btn font-semibold mt-4 d-table border-0" href="">Add</button>
             </div>
         </div>
 
@@ -87,48 +120,5 @@
 @section('js')
 
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-<script>
-    
-    // Set the options that I want
-    toastr.options = {
-    "closeButton": true,
-    "newestOnTop": false,
-    "progressBar": true,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": false,
-    "onclick": null,
-    "showDuration": "1000",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear", 
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-    }
-
-</script>
-
-@if(Session::has('message'))
-<script>
-    $(document).ready(function onDocumentReady() {  
-    
-        toastr.success("{{ Session::get('message') }}");
-    
-    });
-</script>
-@elseif(Session::has('error'))
-<script>
-    $(document).ready(function onDocumentReady() {  
-    
-        toastr.error("{{ Session::get('error') }}");
-    
-    });
-</script>
-@endif
 
 @endsection

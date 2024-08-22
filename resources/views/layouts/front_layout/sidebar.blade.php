@@ -29,7 +29,7 @@
                     <!-- Leads -->
                     
                     <li>
-                        <a class="waves-effect waves-dark <?php if($get_route == "leads" || $get_route == "leads-detail"){ echo "active"; } ?>" href="{{ route('leads') }}" aria-expanded="false">
+                        <a class="waves-effect waves-dark <?php if($get_route == "leads" || $get_route == "leads-detail" || $get_route == "leads-api"){ echo "active"; } ?>" href="{{ route('leads') }}" aria-expanded="false">
                             <!-- href="leads.php" aria-expanded="false"> -->
                             <img src="{{asset('assets/images/list.png') }}" alt=""><span class="hide-menu">Leads Lists</span>
                         </a>
@@ -46,7 +46,7 @@
 
                     <li>
                         <a class="waves-effect waves-dark <?php if($get_route == "brand-management" || $get_route == "add-brand" || $get_route == "edit-brand"){ echo "active"; } ?>" href="{{ route('brand_management') }}" aria-expanded="false">
-                            <img src="{{asset('assets/images/user-mng.png') }}" alt=""><span class="hide-menu">Brands Management</span>
+                            <img src="{{asset('assets/images/list.png') }}" alt=""><span class="hide-menu">Brands Management</span>
                         </a>
                     </li>
 

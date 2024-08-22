@@ -35,6 +35,7 @@ class User extends Authenticatable
         'phone',
         'password',
         'role_id',
+        'brand_id',
         'image',
         'ip',
         'auth_id',
@@ -68,7 +69,7 @@ class User extends Authenticatable
         
         return LogOptions::defaults()
         ->useLogName('User') // Set custom log name
-        ->logOnly(['uuid', 'fname', 'lname', 'email', 'phone', 'password', 'role_id', 'image', 'ip', 'auth_id', 'status', 'created_at','updated_at','deleted_at'])
+        ->logOnly(['uuid', 'fname', 'lname', 'email', 'phone', 'password', 'role_id', 'brand_id', 'image', 'ip', 'auth_id', 'status', 'created_at','updated_at','deleted_at'])
         ->setDescriptionForEvent(fn(string $eventName) => "User {$eventName} Successfully"); 
         
     } 

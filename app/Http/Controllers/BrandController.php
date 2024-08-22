@@ -64,32 +64,18 @@ class BrandController extends Controller
 
             $validated = $request->validate([
 
-                'fname' => 'required|string|max:255',
-                'lname' => 'required|string|max:255',
-                'email' => 'required|email',
-                'password' => 'required|string|min:8|confirmed',
-                'password_confirmation' => 'required_with:password|string|min:8',
-                'role_id' => 'required'
+                'brand' => 'required|string|max:255',
 
             ]);
     
             
             try {
                 
-                // dd($request->all());
-                $ipAddress = getHostByName(getHostName());
                 $auth_id = Auth::user()->uuid;
-
                 $user = Brand::create([
 
                     'uuid' =>  Str::uuid(),
-                    'fname' => $validated['fname'],
-                    'lname' => $validated['lname'],
-                    'email' => $validated['email'],
-                    'phone' => 'XXXX-XXXX-XXXX',
-                    'password' => bcrypt($validated['password']),
-                    'role_id' => $validated['role_id'],
-                    'ip' => $ipAddress,
+                    'brand' => $validated['brand'],
                     'auth_id' => $auth_id
                     
                 ]);
@@ -116,6 +102,8 @@ class BrandController extends Controller
     public function edit_brand($uuid){
     
         try {
+
+    
         
             $get_brand = Brand::where('uuid', $uuid)->first();
             
@@ -133,6 +121,14 @@ class BrandController extends Controller
 
 
     public function update_brand(Request $request){
+
+        
+        $validated = $request->validate([
+
+            'brand' => 'required|string|max:255',
+
+        ]);
+
     
         try {
         
@@ -143,9 +139,9 @@ class BrandController extends Controller
             }
 
             $upd_brand->fill($request->all());
-            $upd_usr = $upd_brand->save();
+            $upd_brand = $upd_brand->save();
 
-            if($upd_usr){
+            if($upd_brand){
                 return redirect()->route('brand_management')->with('message', 'Record updated successfull');
             } 
         

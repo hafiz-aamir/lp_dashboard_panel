@@ -28,7 +28,7 @@
 
                     <div class="d-flex flex-column align-items-start">
                         <span class="hidden-md-down fs-14px fw-bold"> {{ Auth::user()->fname }} {{ Auth::user()->lname }} </span>
-                        <span class="hidden-md-down fs-12px fw-semibold">Admin</span>
+                        <span class="hidden-md-down fs-12px fw-semibold"> {{ Auth::user()->role->role }} </span>
                     </div>
                 </a>
             </li>

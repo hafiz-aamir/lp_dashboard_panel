@@ -121,12 +121,13 @@
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.brand_name}</p></td>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lastSegment}</p></td>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${formattedDate}</p></td>
-                    <td><p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
+                    <td>
+                    <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
                         <button class="table-button btn btn-${color.toLowerCase().replace(' ', '')}">${statusText}</button>
-                        <?php if(\App\Services\PermissionChecker::checkPermission('View', 'Leads')){ ?>
                         <a href="/dashboard/leads-detail/${lead.uuid}" class="table-button btn-viewlead">View Lead</a>
-                        <?php } ?>
-                    </p></td>
+                        <a href="/dashboard/leads-api/${lead.uuid}" class="table-button btn-edit-user">API</a>
+                    </p>
+                    </td>
                 </tr>`;
             $('#leadsTableBody').prepend(newRow); // Prepend new lead at the top
         }

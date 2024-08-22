@@ -9,121 +9,46 @@
 
 @section('content')
 
-
 <?php
-
-
-
-$yearMonth = '2024-07';
-$year = null;
-$month = null;
-
-if ($yearMonth) {
-    list($year, $month) = explode('-', $yearMonth);
-} else {
-    $year = date('Y');
-    $month = date('m');
-}
-
-$statuses = [0, 1, 2, 3, 4]; // List of statuses to fetch data for
-$dataPointsByStatus = [];
-
-foreach ($statuses as $status) {
-    
-    $dataPoints = DB::table('leads')
-        ->select(DB::raw("DATE_FORMAT(created_at, '%b') as label"))
-        ->selectRaw('COUNT(*) as y')
-        ->whereYear('created_at', $year)
-        ->whereMonth('created_at', $month)
-        ->where('status', $status)
-        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%b')"))
-        ->orderBy(DB::raw("MONTH(created_at)"))
-        ->get();
-
-    $dataPointsFormatted = array_fill(0, 12, ['label' => '', 'y' => 0]);
-
-    foreach ($dataPoints as $point) {
-        $index = date('n', strtotime($point->label . ' 1')); // Get month index (1-based)
-        $dataPointsFormatted[$index - 1] = ['label' => $point->label, 'y' => $point->y];
-    }
-
-    $labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    foreach ($dataPointsFormatted as $index => $dataPoint) {
-        $dataPointsFormatted[$index]['label'] = $labels[$index];
-    }
-
-    $dataPointsByStatus['status_' . $status] = $dataPointsFormatted;
-    
-}
-
-// Encode the data and yearMonth for JavaScript
-$dataPointsByStatusJson = json_encode($dataPointsByStatus, JSON_NUMERIC_CHECK);
  
-	
+use App\Models\Lead;
+
+$get_pending_leads = Lead::where('status', '0')->count();
+$get_inprogress_leads = Lead::where('status', '1')->count();
+$get_completed_leads = Lead::where('status', '2')->count();
+$get_rejected_leads = Lead::where('status', '3')->count();
+
+$dataPoints = array( 
+	array("y" => $get_pending_leads, "label" => "Pending" ),
+	array("y" => $get_inprogress_leads, "label" => "Inprogress" ),
+	array("y" => $get_completed_leads, "label" => "Completed" ),
+	array("y" => $get_rejected_leads, "label" => "Rejected" ),
+);
+ 
 ?>
 
-<script type="text/javascript">
-        window.onload = function() {
-            var dataPointsByStatus = <?php echo $dataPointsByStatusJson; ?>;
-            var yearMonth = "<?php echo $year; ?>"; // Pass yearMonth to JavaScript
-
-            var chart = new CanvasJS.Chart("chartContainer", {
-                animationEnabled: true,
-                theme: "light2",
-                title: {
-                    text: "Leads for " + yearMonth
-                },
-                axisY: {
-                    title: "Number of Leads"
-                },
-                data: [
-                    {
-                        type: "column",
-                        name: "Pending",
-                        showInLegend: true,
-                        dataPoints: dataPointsByStatus.status_0.map(function(dp) {
-                            return { label: dp.label, y: dp.y };
-                        })
-                    },
-                    {
-                        type: "column",
-                        name: "Inprogress",
-                        showInLegend: true,
-                        dataPoints: dataPointsByStatus.status_1.map(function(dp) {
-                            return { label: dp.label, y: dp.y };
-                        })
-                    },
-                    {
-                        type: "column",
-                        name: "Completed",
-                        showInLegend: true,
-                        dataPoints: dataPointsByStatus.status_2.map(function(dp) {
-                            return { label: dp.label, y: dp.y };
-                        })
-                    },
-                    {
-                        type: "column",
-                        name: "Rejected",
-                        showInLegend: true,
-                        dataPoints: dataPointsByStatus.status_3.map(function(dp) {
-                            return { label: dp.label, y: dp.y };
-                        })
-                    },
-                    {
-                        type: "column",
-                        name: "Status 4",
-                        showInLegend: true,
-                        dataPoints: dataPointsByStatus.status_4.map(function(dp) {
-                            return { label: dp.label, y: dp.y };
-                        })
-                    }
-                ]
-            });
-
-            chart.render();
-        }
-    </script>
-
+<script>
+window.onload = function() {
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "Current Month Leads"
+	},
+	axisY: {
+		title: "Current Month Leads"
+	},
+	data: [{
+		type: "column",
+		yValueFormatString: "#,##0.## tonnes",
+		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+	}]
+});
+chart.render();
+ 
+}
+</script>
 
 <div class="main-dashboard-content-parent">
     <div class="page-heading">
@@ -177,25 +102,9 @@ $dataPointsByStatusJson = json_encode($dataPointsByStatus, JSON_NUMERIC_CHECK);
         </div>
     </div>
 
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="main-page-lead-box ">
-                <div class="d-flex align-items-center mb-3">
-                    <span class="fs-28px fw-bold col-8">  </span>
-                    <!-- <label for="" style="margin-right: 15px;"> Filter </label> -->
-                    <select class="form-control">
-                        <option value="" disabled selected>Filter by year</option>
-                        <option value="">2024</option>
-                    </select>
-                </div>
-                <!-- <hr> -->
-                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-                <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
-
-            </div>
-        </div>
-    </div>
-
+    <br><br><br>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    
 
 </div>
 
@@ -203,6 +112,9 @@ $dataPointsByStatusJson = json_encode($dataPointsByStatus, JSON_NUMERIC_CHECK);
 @endsection
 
 @section('js')
+
+<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+
 <script type="text/javascript">
     
     

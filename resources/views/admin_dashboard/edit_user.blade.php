@@ -3,6 +3,24 @@
 @section('css')
 <style>
 
+.error {
+    color: red;
+}
+
+.select2-container .select2-selection--multiple {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    min-height: 50px !important;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid black 1px;
+    outline: 0;
+    padding: 5px !important;
+}
 
 </style>
 @endsection
@@ -33,10 +51,14 @@
 
                         <div class="row">
                             <div class="col-lg-6">
+
+                                <input type="hidden" name="id" value="{{ $get_user->id }}">
+
                                 <div class="addUserInp py-2">
                                     <label for="">First Name</label>
                                     <input name="fname" value="{{ $get_user->fname }}" class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter user first name">
-                                    <input type="hidden" name="id" value="{{ $get_user->id }}">
+                                        
+                                    
                                 </div>
                                 <div class="addUserInp py-2">
                                     <label for="">Email</label>
@@ -49,31 +71,50 @@
                                     <label for="">Last Name</label>
                                     <input name="lname" value="{{ $get_user->lname }}" class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter user last name">
                                 </div>
+                               
                                 <div class="addUserInp py-2">
-                                    <label for="">Select Brand</label>
-                                    <select name="role_id" class="inpCust py-3 d-lg-block form-control my-1">
-                                        <option value="" disabled selected>-- Select Brand --</option>
-                                        <option <?php if($get_user->role_id == "2"){ echo 'selected'; } ?> value="2">Admin</option>
-                                    </select>
+                                    <label for="">Phone Number</label>
+                                    <input name="phone" value="{{ $get_user->phone }}" class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter user last name">
                                 </div>
+                                
+                                
                                 
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="addUserInp py-2">
                                     <label for="">Select Status</label>
-                                    <select name="role_id" class="inpCust py-3 d-lg-block form-control my-1">
+                                    <select name="status" class="inpCust py-3 d-lg-block form-control my-1">
                                         <option value="1" disabled selected>-- Select Status --</option>
                                         <option <?php if($get_user->status == "1"){ echo 'selected'; } ?> value="1">Active</option>
-                                        <option <?php if($get_user->status == "2"){ echo 'selected'; } ?> value="2">InActive</option>
+                                        <option <?php if($get_user->status == "0"){ echo 'selected'; } ?> value="0">InActive</option>
                                     </select>
                                 </div>
                                 
                             </div>
 
+                            <?php $selectedBrandIds = explode(',', $get_user->brand_id);  ?>
+
+                            <div class="col-lg-6">
+
+                                <div class="addUserInp py-2">
+                                    <label for="">Select Brand</label>
+                                    <select name="brand_id[]" class="select2 inpCust py-3 d-lg-block form-control my-1" multiple>
+                                        @foreach($get_brand as $key => $val_brand)
+                                            <option value="{{ $val_brand->brand }}" <?php if(in_array($val_brand->brand, $selectedBrandIds)){ echo 'selected'; } ?>>
+                                                {{ $val_brand->brand }}
+                                            </option>
+                                        @endforeach
+                                    </select>  
+                                </div>
+
+                            </div>
+
+                            
+
                         </div>
 
-                        <button  class="add-user-btn font-semibold mt-4 d-table border-0">Update</button>
+                        <button type="submit" class="add-user-btn font-semibold mt-4 d-table border-0">Update</button>
 
                 </div>
             </div>
@@ -87,8 +128,5 @@
 @endsection
 
 @section('js')
-<script type="text/javascript">
-    
-    
-</script>
+
 @endsection
