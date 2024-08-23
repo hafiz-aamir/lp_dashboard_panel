@@ -77,14 +77,34 @@ class BrandController extends Controller
             try {
                 
                 $auth_id = Auth::user()->uuid;
-                $user = Brand::create([
+
+                $save_array = [
 
                     'uuid' =>  Str::uuid(),
                     'brand' => $validated['brand'],
                     'auth_id' => $auth_id
-                    
-                ]);
 
+                ];
+
+                if ($request->hasFile('brand_logo')) {
+                    $file = $request->file('brand_logo');
+                    $fileName = time() . '_' . $file->getClientOriginalName(); // Prepend timestamp for unique filename
+                    $folderName = '/upload_files/brand_logo/';
+                    $destinationPath = public_path() . $folderName;
+            
+                    // Ensure the directory exists, if not create it
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 0755, true);
+                    }
+            
+                    // Move the file to the destination path
+                    $file->move($destinationPath, $fileName);
+            
+                    // Update the menu's icon path
+                    $save_array['brand_logo'] = $folderName . $fileName;
+                }
+                
+                $user = Brand::create($save_array);
 
                 if($user){
 
@@ -166,9 +186,28 @@ class BrandController extends Controller
                 return back()->with('error', 'Record not found');
             }
 
-            $request['brand'] =  $request->brand;
-            $request['status'] =  $request->status;
-            $upd_brand->fill($request->all());
+            $upd_brand['brand'] =  $request->brand;
+            $upd_brand['status'] =  $request->status;
+
+            if ($request->hasFile('brand_logo')) {
+                $file = $request->file('brand_logo');
+                $fileName = time() . '_' . $file->getClientOriginalName(); // Prepend timestamp for unique filename
+                $folderName = '/upload_files/brand_logo/';
+                $destinationPath = public_path() . $folderName;
+        
+                // Ensure the directory exists, if not create it
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+        
+                // Move the file to the destination path
+                $file->move($destinationPath, $fileName);
+        
+                // Update the menu's icon path
+                $upd_brand['brand_logo'] = $folderName . $fileName;
+            }
+
+            
 
             $upd_brandd = $upd_brand->save();
 

@@ -19,6 +19,17 @@ border-radius: 5px;
 
 }
 
+
+.img_class{
+    height: 50px;
+    width: 100px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    object-fit: contain; 
+    padding-inline: 8px;
+}
+
+
 </style>
 @endsection
 
@@ -44,6 +55,7 @@ border-radius: 5px;
             <th>#</th>
             <th>Brand</th>
             <th>Created At</th>
+            <th>Logo</th>
             <th>Status</th>
             <th>Action</th>
            
@@ -66,6 +78,16 @@ border-radius: 5px;
                 <p class="d-flex align-items-center justify-content-start mb-0"> {{ \Carbon\Carbon::parse($value->created_at)->format('d-m-Y H:i:s a') }} </p>
             </td>
             
+            <td>
+                <p class="d-flex align-items-center justify-content-start mb-0"> 
+
+                    <?php if($value->brand_logo != null || $value->brand_logo != ''){ ?>
+                        <img src="{{ asset($value->brand_logo) }}" style="" class="img_class" />
+                    <?php }else{ ?>
+                        <img src="{{ asset('empty.png') }}" style=""  class="img_class"/>
+                    <?php } ?>
+                </p>
+            </td>
 
             <td>
                 <p class="d-flex align-items-center justify-content-start mb-0"> <span class="<?php if($value->status == "1"){ echo 'active_span'; }else{ echo 'inactive_span'; } ?>" > <?php if($value->status == "1"){ echo 'Active'; }else{ echo 'InActive'; } ?>  </span> </p>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('brand')->unique();
+            $table->longText('brand_logo')->nullable();
             $table->string('auth_id')->default('1');
             $table->integer('status')->default('1');
             $table->timestamps();

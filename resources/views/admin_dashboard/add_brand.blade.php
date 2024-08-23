@@ -7,6 +7,15 @@
     color: red;
 }
 
+.img_class{
+
+border: 1px solid #000; 
+height: 100px; 
+width: 200px; 
+border-radius: 10px;
+
+}
+
 </style>
 @endsection
 
@@ -39,10 +48,22 @@
                         
                         <div class="addUserInp py-2">
                             <label for="">Brand Name</label>
-                            <input name="brand" value="{{ old('brand') }}" class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter user first name">
+                            <input name="brand" value="{{ old('brand') }}" class="inpCust py-3 d-lg-block form-control my-1" type="text" placeholder="Enter brand name">
                             @error('brand') <div class="error">{{ $message }}</div> @enderror
                         </div>
+
+
+                        <div class="addUserInp py-2">
+                            <label for="">Brand Logo</label>
+                            <input name="brand_logo" id="brand_logo" value="{{ old('brand_logo') }}" class="inpCust py-3 d-lg-block form-control my-1" type="file">
+                            @error('brand_logo') <div class="error">{{ $message }}</div> @enderror
+                        </div>
                        
+                        <div class="addUserInp py-2">
+                            <img src="{{ asset('empty.png') }}" id="img_selected" alt="Brand" class="img_class"/>
+                        </div>
+                       
+
                     </div>
                     
                 </div>
@@ -104,5 +125,25 @@
     });
 </script>
 @endif
+
+
+<script>
+    
+    document.getElementById('brand_logo').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('img_selected');
+                img.src = e.target.result;
+                img.style.display = 'block'; // Show the image
+            }
+            reader.readAsDataURL(file);
+        } else {
+            document.getElementById('img_selected').style.display = 'none'; // Hide the image if no file selected
+        }
+    });
+
+</script>
 
 @endsection

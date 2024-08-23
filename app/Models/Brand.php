@@ -12,6 +12,7 @@ class Brand extends Model
     protected $fillable = [
         'uuid',
         'brand',
+        'brand_logo',
         'status',
         'auth_id',
     ];
