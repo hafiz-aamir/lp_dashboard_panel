@@ -26,6 +26,28 @@ class LoginController extends Controller
         $this->middleware('guest');
     }
 
+
+    
+
+    public function index(){
+        
+        try {
+        
+            
+            
+            
+            
+        return view('welcome');
+        
+        }catch(\Exception $e) { 
+
+            return redirect()->back()->with('error', $e->getMessage());
+
+        }
+
+    }
+
+
     public function login(){
         
         try {

@@ -44,8 +44,9 @@
 
                   <div class="d-flex align-items-center justify-content-between">
                   <label class="fw-semibold" for="password">Password </label>
-                  <a class="forget-pass-login text-black" href="">Forget Password?</a>
+                  <!-- <a class="forget-pass-login text-black" href="">Forget Password?</a> -->
                   </div>
+                  
                     <input type="password" name="password" id="password" placeholder="Password" value="{{ old('password') }}" />
                     @error('password') <div class="error">{{ $message }}</div> @enderror
                   </div>

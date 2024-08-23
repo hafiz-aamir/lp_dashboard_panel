@@ -18,9 +18,9 @@ use App\Http\Controllers\BrandController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
 // Authentication Routes
