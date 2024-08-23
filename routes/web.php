@@ -29,7 +29,7 @@ Route::post('postlogin', [LoginController::class, 'postlogin'])->name('postlogin
 
 
 // Dashboard Routes
-Route::get('logout', [DashboardController::class, 'logout'])->name('logout');
+Route::get('logout', [DashboardController::class, 'logout'])->name('logout'); 
 
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard');
 
