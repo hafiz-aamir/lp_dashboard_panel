@@ -29,7 +29,7 @@
                     <!-- Leads -->
                     
                     <li>
-                        <a class="waves-effect waves-dark <?php if($get_route == "leads" || $get_route == "leads-detail" || $get_route == "leads-api"){ echo "active"; } ?>" href="{{ route('leads') }}" aria-expanded="false">
+                        <a class="waves-effect waves-dark <?php if($get_route == "leads" || $get_route == "leads-detail" || $get_route == "leads-filter"){ echo "active"; } ?>" href="{{ route('leads') }}" aria-expanded="false">
                             <!-- href="leads.php" aria-expanded="false"> -->
                             <img src="{{asset('assets/images/list.png') }}" alt=""><span class="hide-menu">Leads Lists</span>
                         </a>
