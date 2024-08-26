@@ -137,7 +137,7 @@ class LeadController extends Controller
         {
            
             // Fetching all leads
-            $leads = Lead::orderBy('id', 'desc')->get();
+            $leads = Lead::orderBy('id', 'asc')->get();
 
         }
         elseif(Auth::user()->role_id == "3")
@@ -145,7 +145,7 @@ class LeadController extends Controller
          
             // Fetching By Brands
             $selectedBrandIds = explode(',', Auth::user()->brand_id); 
-            $leads = Lead::whereIn('brand_name', $selectedBrandIds)->orderBy('created_at', 'asc')->get();
+            $leads = Lead::whereIn('brand_name', $selectedBrandIds)->orderBy('id', 'asc')->get();
             
         }
 
