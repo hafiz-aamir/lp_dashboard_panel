@@ -137,7 +137,7 @@ class LeadController extends Controller
         {
            
             // Fetching all leads
-            $leads = Lead::orderBy('created_at', 'asc')->get();
+            $leads = Lead::orderBy('id', 'desc')->get();
 
         }
         elseif(Auth::user()->role_id == "3")
