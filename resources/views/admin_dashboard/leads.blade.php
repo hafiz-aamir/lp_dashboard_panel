@@ -71,7 +71,7 @@
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Brand Name</th>
-                <th>Page</th>
+                <!-- <th>Page</th> -->
                 <th>Created At</th>
                 <th>Action</th>
             </tr>
@@ -159,7 +159,7 @@
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.email}</p></td>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.phone}</p></td>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.brand_name}</p></td>
-                    <td><p class="d-flex align-items-center justify-content-start mb-0">${lastSegment}</p></td>
+                    // <td><p class="d-flex align-items-center justify-content-start mb-0">${lastSegment}</p></td>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${formattedDate}</p></td>
                     <td>
                     <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
