@@ -11,7 +11,6 @@
     padding-bottom: 5px;
     padding-right: 5px;
     position: relative;
-    height: 38px;
 }
 
 </style>
