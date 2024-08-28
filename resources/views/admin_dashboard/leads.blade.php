@@ -19,6 +19,31 @@
 @section('content')
 
 
+<?php 
+
+function getPageNameWithoutExtension($url) {
+    
+     // Parse the URL to get the path
+     $parsedUrl = parse_url($url);
+     $path = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
+ 
+     // If the path is empty or just a single '/', set it to 'index'
+     if (empty($path) || $path === '/') {
+         return 'index';
+     }
+ 
+     // Remove leading '/' if present to handle cases where the path starts with '/'
+     $path = ltrim($path, '/');
+ 
+     // Get the filename and extension from the path
+     $pathInfo = pathinfo($path);
+     
+     // Return the filename without the extension
+     return isset($pathInfo['filename']) ? $pathInfo['filename'] : '';
+
+}
+
+?>
 
 <div class="main-dashboard-content-parent">
         
@@ -70,7 +95,7 @@
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Brand Name</th>
-                <!-- <th>Page</th> -->
+                <th>Page</th>
                 <th>Created At</th>
                 <th>Action</th>
             </tr>
@@ -92,6 +117,7 @@
 
 @section('js')
 
+
 <script>
     $(document).ready(function() {
         // Fetch initial leads
@@ -111,8 +137,11 @@
             });
         }
 
+        var page_without_ext = getPageNameWithoutExtension(lead.page_url);
+
         // Function to append a lead to the table
         function appendLead(lead) {
+          
             var statusText = '';
             switch(lead.status) {
                 case 0:
@@ -133,6 +162,8 @@
                     break;
             }
 
+            
+
             var createdAt = new Date(lead.created_at);
             var formattedDate = createdAt.toLocaleString('en-US', {
                 year: 'numeric',
@@ -143,6 +174,7 @@
                 second: '2-digit',
                 hour12: false
             });
+            
             var url = lead.page_url;
 
             // Extract the last segment after the last '/'
@@ -151,6 +183,11 @@
             // Remove the '.php' extension
             lastSegment = lastSegment.replace('.php', '');
 
+            if(lastSegment == "")
+            {
+                lastSegment = "index";
+            }
+
             var newRow = `
                 <tr>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.id}</p></td>
@@ -158,11 +195,12 @@
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.email}</p></td>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.phone}</p></td>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${lead.brand_name}</p></td>
+                    <td><p class="d-flex align-items-center justify-content-start mb-0">${lastSegment}</p></td>
                     <td><p class="d-flex align-items-center justify-content-start mb-0">${formattedDate}</p></td>
                     <td>
                     <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
-                        <button class="table-button btn btn-${color.toLowerCase().replace(' ', '')}">${statusText}</button>
-                        <a href="/dashboard/leads-detail/${lead.uuid}" class="table-button btn-viewlead">View Lead</a>
+                        <button style="width:120px;" class="table-button btn btn-${color.toLowerCase().replace(' ', '')}">${statusText}</button>
+                        <a style="width:120px; text-align:center;" href="/dashboard/leads-detail/${lead.uuid}" class="table-button btn-viewlead">View Lead</a>
                     </p>
                     </td>
                 </tr>`;

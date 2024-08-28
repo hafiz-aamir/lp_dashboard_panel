@@ -21,15 +21,25 @@
 <?php 
 
 function getPageNameWithoutExtension($url) {
-    // Parse the URL to get the path
-    $parsedUrl = parse_url($url);
-    $path = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
-
-    // Get the filename and extension from the path
-    $pathInfo = pathinfo($path);
     
-    // Return the filename without the extension
-    return isset($pathInfo['filename']) ? $pathInfo['filename'] : '';
+     // Parse the URL to get the path
+     $parsedUrl = parse_url($url);
+     $path = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
+ 
+     // If the path is empty or just a single '/', set it to 'index'
+     if (empty($path) || $path === '/') {
+         return 'index';
+     }
+ 
+     // Remove leading '/' if present to handle cases where the path starts with '/'
+     $path = ltrim($path, '/');
+ 
+     // Get the filename and extension from the path
+     $pathInfo = pathinfo($path);
+     
+     // Return the filename without the extension
+     return isset($pathInfo['filename']) ? $pathInfo['filename'] : '';
+
 }
 
 ?>
@@ -108,16 +118,16 @@ function getPageNameWithoutExtension($url) {
                     <p class="d-flex align-items-center gap-lg-3 gap-2 mb-0">
 
                         <?php if($val_leads->status == "0"){ ?>
-                        <button class="table-button btn btn-primary"> Pending </button>
+                        <button style="width:120px;" class="table-button btn btn-primary"> Pending </button>
                         <?php }elseif($val_leads->status == "1"){ ?>
-                        <button class="table-button btn btn-warning"> In Progress </button>
+                        <button style="width:120px;" class="table-button btn btn-warning"> In Progress </button>
                         <?php }elseif($val_leads->status == "2"){ ?>
-                        <button class="table-button btn btn-success"> Completed </button>
+                        <button style="width:120px;" class="table-button btn btn-success"> Completed </button>
                         <?php }elseif($val_leads->status == "3"){ ?>
-                        <button class="table-button btn btn-danger"> Rejected </button>
+                        <button style="width:120px;" class="table-button btn btn-danger"> Rejected </button>
                         <?php } ?>
                         
-                        <a href="{{ route('leads_detail', ['id' => $val_leads->uuid ]) }}" class="table-button btn-viewlead">View Lead</a>
+                        <a style="width:120px; text-align:center;" href="{{ route('leads_detail', ['id' => $val_leads->uuid ]) }}" class="table-button btn-viewlead">View Lead</a>
                     </p>
                 </td>
             </tr>
