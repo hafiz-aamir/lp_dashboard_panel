@@ -90,7 +90,7 @@ function getPageNameWithoutExtension($url) {
         <table class="table table-responsive table-hover">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>IDD</th>
                 <th>First Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
