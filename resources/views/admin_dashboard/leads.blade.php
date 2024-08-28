@@ -162,7 +162,7 @@ function getPageNameWithoutExtension($url) {
                     break;
             }
 
-             
+              
 
             var createdAt = new Date(lead.created_at);
             var formattedDate = createdAt.toLocaleString('en-US', {
