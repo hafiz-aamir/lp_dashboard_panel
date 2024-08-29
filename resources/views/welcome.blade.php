@@ -24,7 +24,7 @@
         <div class="login-box">
           <div class="login-box-inner">
             <div class="login-head-para text-center">
-              <h3 class="fw-bold">Login to Account chagee</h3>
+              <h3 class="fw-bold">Login to Account chagess</h3>
               <p class="fw-semibold">Please enter your email and password to continue</p>
             </div>
 
