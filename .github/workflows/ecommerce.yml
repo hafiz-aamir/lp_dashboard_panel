@@ -1,0 +1,25 @@
+name: lp_dashboard_panel
+
+on:
+  push:
+    branches:
+      - pronto_solution_brand_dashboard  # or the branch you want to deploy from
+
+jobs:
+  ftp-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install LFTP
+        run: sudo apt-get install lftp
+
+      - name: Deploy via FTP
+        env:
+          FTP_HOST: ftp.codetech.pk
+          FTP_USERNAME: codetec1@dashboard.codetech.pk
+          FTP_PASSWORD: I!xKBeKp@ZL=
+        run: |
+          lftp -c "set ssl:verify-certificate no; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -R ./ /lp_dashboard_panel --ignore-time --parallel=10"
